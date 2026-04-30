@@ -131,7 +131,7 @@ export default function Home() {
         <div className="relative flex-1 flex flex-col justify-center items-center pt-24 md:pt-28 pb-6 px-4 sm:px-8">
           <div className="w-full max-w-[1400px] text-center">
             <h1 className="font-display text-white leading-[1.05] animate-fade-up"
-              style={{ fontSize: 'clamp(4.25rem, 14vw, 11.5rem)' }}>
+              style={{ fontSize: 'clamp(2.75rem, 12vw, 11.5rem)' }}>
               <span className="block">{t('home.hero.title')}</span>
               <span className="block mt-3 md:mt-5">{t('home.hero.title2')}</span>
             </h1>
@@ -190,7 +190,7 @@ export default function Home() {
 
       {/* ANNOUNCEMENT BAR */}
       {show.marquee && <div className="bg-crimson text-white py-3 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex gap-16 text-[11px] tracking-[0.3em] uppercase">
+        <div className="animate-marquee whitespace-nowrap flex gap-16 text-[11px] tracking-[0.3em] uppercase w-max">
           {Array.from({ length: 8 }).map((_, i) => (
             <span key={i} className="flex items-center gap-16">
               <span>{t('home.marquee.1')}</span>
