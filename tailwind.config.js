@@ -45,7 +45,7 @@ export default {
         'fade-up': 'fadeUp 0.9s ease-out forwards',
         'scale-in': 'scaleIn 0.6s ease-out forwards',
         'marquee': 'marquee 40s linear infinite',
-        'marquee-fast': 'marquee 15s linear infinite',
+        'marquee-fast': 'marquee 8s linear infinite',
         'shimmer': 'shimmer 2.5s linear infinite',
       },
       keyframes: {

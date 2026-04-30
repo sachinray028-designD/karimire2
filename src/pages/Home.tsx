@@ -221,9 +221,9 @@ export default function Home() {
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-navy mt-3">{t('home.devstrip.title')}</h2>
           <p className="text-navy/60 mt-2 md:mt-3 max-w-xl mx-auto text-sm md:text-base">{t('home.devstrip.description')}</p>
         </div>
-        <div className="relative">
-          <div className="flex gap-20 animate-marquee-fast whitespace-nowrap">
-            {[...devLogos, ...devLogos].map((logo, i) => (
+        <div className="relative overflow-hidden">
+          <div className="flex gap-16 md:gap-20 animate-marquee-fast whitespace-nowrap w-max">
+            {[...devLogos, ...devLogos, ...devLogos, ...devLogos].map((logo, i) => (
               <div key={i} className="shrink-0">
                 <DeveloperLogo logo={logo} className="h-10" />
               </div>
