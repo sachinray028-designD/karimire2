@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #0b1530;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Marcellus', 'Playfair Display', Georgia, serif;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: #092965;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-crimson text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-sm font-medium tracking-wide uppercase text-xs sm:text-sm transition-all duration-300 hover:bg-crimson-600 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-white/70 text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-sm font-medium tracking-wide uppercase text-xs sm:text-sm transition-all duration-300 hover:bg-white hover:text-navy;
+  }
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 bg-navy text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-sm font-medium tracking-wide uppercase text-xs sm:text-sm transition-all duration-300 hover:bg-navy-700 hover:shadow-lg;
+  }
+  .container-px {
+    @apply px-4 sm:px-8 lg:px-12 xl:px-20;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-crimson font-medium;
+  }
+  .glass {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .hover-lift {
+    @apply transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl;
+  }
+  .text-balance { text-wrap: balance; }
+  .gold-divider {
+    background: linear-gradient(90deg, transparent, #c9a24a, transparent);
+    height: 1px;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.locked-blur {
+  filter: blur(14px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #f5f6fa; }
+::-webkit-scrollbar-thumb { background: #092965; border-radius: 4px; }
