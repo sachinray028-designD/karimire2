@@ -131,20 +131,20 @@ export default function Home() {
         <div className="relative flex-1 flex flex-col justify-center items-center pt-24 md:pt-28 pb-6 px-4 sm:px-8">
           <div className="w-full max-w-[1400px] text-center">
             <h1 className="font-display text-white leading-[1.05] animate-fade-up"
-              style={{ fontSize: 'clamp(2.75rem, 12vw, 11.5rem)' }}>
+              style={{ fontSize: 'clamp(3.5rem, 14vw, 11.5rem)', textShadow: '0 2px 16px rgba(0,0,0,0.4)' }}>
               <span className="block">{t('home.hero.title')}</span>
               <span className="block mt-3 md:mt-5">{t('home.hero.title2')}</span>
             </h1>
 
             <div className="mt-6 md:mt-8 max-w-xl mx-auto animate-fade-up text-center" style={{ animationDelay: '0.15s' }}>
-              <p className="text-white text-sm md:text-base leading-relaxed" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{t('home.hero.description')}</p>
+              <p className="text-white text-sm md:text-base leading-relaxed" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.7)' }}>{t('home.hero.description')}</p>
             </div>
 
             <div className="mt-6 md:mt-8 flex flex-wrap gap-3 sm:gap-4 justify-center animate-fade-up" style={{ animationDelay: '0.3s' }}>
-              <BookConsultationButton source="Hero CTA" className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-sm font-medium tracking-wide uppercase text-xs sm:text-sm text-white bg-white/15 backdrop-blur-md border border-white/30 transition-all duration-300 hover:bg-white/25 hover:border-white/50" icon={<CalendarDays size={14}/>}>
+              <BookConsultationButton source="Hero CTA" className="btn-primary" icon={<CalendarDays size={14}/>}>
                 {t('home.hero.cta1')}
               </BookConsultationButton>
-              <a href={`tel:${t('global.topbar.phone').replace(/\s/g, '')}`} className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-sm font-medium tracking-wide uppercase text-xs sm:text-sm text-white bg-crimson/80 backdrop-blur-md border border-crimson/50 transition-all duration-300 hover:bg-crimson hover:border-crimson">
+              <a href={`tel:${t('global.topbar.phone').replace(/\s/g, '')}`} className="btn-primary">
                 <Phone size={14}/>{t('home.hero.cta2')}
               </a>
             </div>
@@ -222,7 +222,7 @@ export default function Home() {
           <p className="text-navy/60 mt-2 md:mt-3 max-w-xl mx-auto text-sm md:text-base">{t('home.devstrip.description')}</p>
         </div>
         <div className="relative">
-          <div className="flex gap-20 animate-marquee whitespace-nowrap">
+          <div className="flex gap-20 animate-marquee-fast whitespace-nowrap">
             {[...devLogos, ...devLogos].map((logo, i) => (
               <div key={i} className="shrink-0">
                 <DeveloperLogo logo={logo} className="h-10" />
