@@ -121,7 +121,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-navy/30 via-navy/25 to-navy/75"/>
 
         {/* Vertical label on the left */}
-        <div className="hidden lg:flex absolute left-6 xl:left-10 top-1/2 -translate-y-1/2 flex-col items-center gap-3 text-white/85 tracking-[0.45em] text-[10px] uppercase z-10">
+        <div className="hidden lg:flex absolute left-8 xl:left-14 top-1/2 -translate-y-1/2 flex-col items-center gap-3 text-white/85 tracking-[0.45em] text-[10px] uppercase z-10">
           {t('home.hero.vertical').split(' ').map((w, i) => (
             <span key={i} style={{ writingMode: 'vertical-rl' }} className="rotate-180">{w}</span>
           ))}
@@ -356,7 +356,7 @@ export default function Home() {
             <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl text-white">{t('home.process.title')}</h2>
           </div>
           <div className="mt-10 md:mt-14 grid sm:grid-cols-2 md:grid-cols-4 gap-8 reveal relative">
-            <div className="hidden md:block absolute top-[2.5rem] left-0 right-0 h-px bg-white/10"/>
+            <div className="hidden md:block absolute top-[0.625rem] left-0 right-0 h-px bg-white/10"/>
             {[
               { n: '01', t: t('home.process.1.title'), d: t('home.process.1.text') },
               { n: '02', t: t('home.process.2.title'), d: t('home.process.2.text') },
@@ -393,7 +393,7 @@ export default function Home() {
       </section>}
 
       {/* GOLDEN VISA */}
-      {show.visa && <section className="relative py-14 md:py-24 overflow-hidden">
+      {show.visa && <section className="relative py-14 md:py-24 overflow-hidden bg-navy">
         <img src={t('home.visa.bg')} className="absolute inset-0 w-full h-full object-cover" alt=""/>
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/50"/>
         <div className="container-px relative grid lg:grid-cols-2 gap-10 md:gap-16 items-center text-white">

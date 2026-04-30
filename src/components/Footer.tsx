@@ -29,7 +29,7 @@ export default function Footer() {
     <footer className="bg-navy-900 text-white/70">
       {showNewsletter && (
         <div className="bg-navy-800 border-b border-white/5">
-          <div className="container-px py-14 grid md:grid-cols-2 gap-8 items-center">
+          <div className="container-px py-14 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>{t('footer.newsletter.eyebrow')}</div>
               <h3 className="mt-3 font-display text-3xl md:text-4xl text-white">{t('footer.newsletter.title')}</h3>
