@@ -12,10 +12,10 @@ const DEV_META: { est: string; tag: string; desc: string; img: string }[] = [
   { est: '2005', tag: 'Ultra-Luxury Boutique', desc: 'Behind The Opus by Zaha Hadid, One Palm, The Bay and the Binary Tower.', img: 'https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=1400' },
   { est: '2000', tag: 'Master Developer', desc: 'Developer of Palm Jumeirah, Palm Jebel Ali, The World Islands and Dubai Islands.', img: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1400' },
   { est: '2007', tag: 'Lifestyle Destinations', desc: 'Developer of Bluewaters, City Walk, La Mer and a curated portfolio of lifestyle districts.', img: 'https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=1400' },
-  { est: '2014', tag: 'Design-Led', desc: 'A design-driven developer behind DT1, Belgravia and Upper House — celebrated for finish quality.', img: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1400' },
-  { est: '2002', tag: 'Waterfront Specialist', desc: 'Europe-grade waterfront towers — Marina Gate, Peninsula and the iconic The Residences.', img: 'https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=1400' },
+  { est: '2014', tag: 'Design-Led', desc: 'A design-driven developer behind DT1, Belgravia and Upper House, celebrated for finish quality.', img: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1400' },
+  { est: '2002', tag: 'Waterfront Specialist', desc: 'Europe-grade waterfront towers including Marina Gate, Peninsula and the iconic The Residences.', img: 'https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=1400' },
   { est: '2008', tag: 'Architectural Identity', desc: 'Sculptural, instantly recognisable façades delivering strong rental yields across Dubai.', img: 'https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=1400' },
-  { est: '2014', tag: 'Attainable Luxury', desc: 'Pioneer of the 1% monthly payment plan — one of Dubai\'s fastest delivery track records.', img: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1400' },
+  { est: '2014', tag: 'Attainable Luxury', desc: 'Pioneer of the 1% monthly payment plan, one of Dubai\'s fastest delivery track records.', img: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1400' },
 ];
 
 export default function Developers() {

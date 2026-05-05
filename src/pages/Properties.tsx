@@ -80,7 +80,7 @@ export default function Properties() {
         <div className="container-px relative">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>Curated Portfolio</div>
           <h1 className="mt-4 font-display text-5xl md:text-7xl">Dubai's finest,<br/><span className="italic text-crimson-100">filtered.</span></h1>
-          <p className="mt-5 text-white/70 max-w-2xl text-lg">Off-plan and ready properties across every prime Dubai address — continuously updated with direct-from-developer allocations.</p>
+          <p className="mt-5 text-white/70 max-w-2xl text-lg">Off-plan and ready properties across every prime Dubai address, continuously updated with direct-from-developer allocations.</p>
         </div>
       </section>
 

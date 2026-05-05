@@ -430,7 +430,62 @@ export default function Home() {
         </div>
       </section>}
 
-      {/* TESTIMONIAL — Featured carousel */}
+      {/* UAE VISA POLICY UPDATES 2026 */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container-px">
+          <div className="text-center max-w-3xl mx-auto reveal mb-10 md:mb-14">
+            <div className="eyebrow justify-center"><span className="w-8 h-px bg-crimson"/>Latest UAE Visa Policy Updates</div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl text-navy">New Visa Regulations for Property Investors</h2>
+            <p className="mt-5 text-navy/70 text-lg">The UAE has introduced significant updates to its property-linked residency policies in 2026, making it easier than ever for investors to secure long-term residency.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 reveal">
+            {/* Golden Visa Card */}
+            <div className="bg-navy p-7 md:p-9 text-white hover-lift border border-navy/20">
+              <div className="inline-flex items-center gap-2 bg-crimson/20 border border-crimson/40 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson-200 mb-5">10-Year Golden Visa</div>
+              <h3 className="font-display text-2xl">Property Investment Route</h3>
+              <ul className="mt-5 space-y-3 text-white/75 text-sm leading-relaxed">
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Minimum investment: AED 2 Million</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>50% upfront payment requirement removed (Feb 2026)</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Multiple properties can be combined</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Mortgaged and off-plan properties now qualify</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Covers spouse, children, and parents</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>No sponsor or employer needed</li>
+              </ul>
+            </div>
+            {/* 2-Year Investor Visa Card */}
+            <div className="bg-navy-50/40 p-7 md:p-9 text-navy hover-lift border border-navy/10">
+              <div className="inline-flex items-center gap-2 bg-crimson/10 border border-crimson/30 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson mb-5">2-Year Investor Visa</div>
+              <h3 className="font-display text-2xl">Simplified Property Visa</h3>
+              <ul className="mt-5 space-y-3 text-navy/75 text-sm leading-relaxed">
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Sole owners: No minimum property value required</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Joint owners: AED 400,000 minimum per co-owner</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Renewable every 2 years</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Family visa sponsorship available</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>No employer or sponsor needed</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Available for all Dubai freehold zones</li>
+              </ul>
+            </div>
+            {/* Other Updates Card */}
+            <div className="bg-navy-50/40 p-7 md:p-9 text-navy hover-lift border border-navy/10">
+              <div className="inline-flex items-center gap-2 bg-crimson/10 border border-crimson/30 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson mb-5">Additional Residency Options</div>
+              <h3 className="font-display text-2xl">More Pathways to UAE Residency</h3>
+              <ul className="mt-5 space-y-3 text-navy/75 text-sm leading-relaxed">
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>5-Year Retirees Residency (55+ years)</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>3-Year Family Visa for property owners</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Parents / In-law sponsorship visa</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>DLD CUBE one-stop processing center</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Medical test + Emirates ID in one visit</li>
+                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>All services at Al Manara Centre, SZR</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 text-center reveal">
+            <BookConsultationButton source="Visa Policy" className="btn-primary inline-flex">Get Free Visa Consultation <ArrowRight size={16}/></BookConsultationButton>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL - Featured carousel */}
       {show.testimonials && <section className="py-12 md:py-20 bg-white">
         <div className="container-px">
           <div className="text-center reveal mb-10 md:mb-12">

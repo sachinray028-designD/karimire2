@@ -19,7 +19,7 @@ export default function About() {
       <Seo page="about" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'About', url: 'https://karimi.ae/about' }]} />
       <main>
       <section className="pt-32 md:pt-44 pb-16 md:pb-24 bg-navy text-white relative overflow-hidden">
-        <img src={t('about.hero.bg')} className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
+        <img src={t('about.hero.bg')} className="absolute inset-0 w-full h-full object-cover opacity-30" alt=""/>
         <div className="container-px relative max-w-4xl">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>{t('about.hero.eyebrow')}</div>
           <h1 className="mt-5 font-display text-5xl md:text-7xl text-balance">{t('about.hero.title')}</h1>

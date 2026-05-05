@@ -31,7 +31,7 @@ export default function Contact() {
             <div className="bg-navy-50/40 p-8">
               <h3 className="font-display text-2xl text-navy">Visit our office</h3>
               <div className="mt-5 space-y-4 text-navy/80">
-                <div className="flex gap-3"><MapPin className="text-crimson shrink-0 mt-0.5" size={18}/><span>21st Floor, Office No. 31,<br/>The Binary Tower by Omniyat,<br/>Business Bay, Dubai, UAE</span></div>
+                <div className="flex gap-3"><MapPin className="text-crimson shrink-0 mt-0.5" size={18}/><span>8th Floor, Office No. 0810,<br/>Tamani Art Tower, Al Asayel Street,<br/>Business Bay, Dubai</span></div>
                 <div className="flex gap-3"><Phone className="text-crimson shrink-0 mt-0.5" size={18}/><span>+971 52 868 0423<br/>04 558 4435</span></div>
                 <div className="flex gap-3"><Mail className="text-crimson shrink-0 mt-0.5" size={18}/><span>info@karimi.ae</span></div>
                 <div className="flex gap-3"><Clock className="text-crimson shrink-0 mt-0.5" size={18}/><span>Sun – Thu, 9:00 – 19:00<br/>Fri – Sat, By appointment</span></div>
@@ -39,7 +39,7 @@ export default function Contact() {
             </div>
             <div className="aspect-[4/3] overflow-hidden">
               <iframe
-                title="Karimi Real Estate — Business Bay"
+                title="Karimi Real Estate, Business Bay"
                 src="https://www.google.com/maps?q=Binary+Tower+Business+Bay+Dubai&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"

@@ -52,7 +52,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   ...Array.from({ length: 12 }).flatMap((_, idx) => {
     const i = idx + 1;
     const seeded = [
-      { n: 'Emaar Properties', u: 'https://cdn.brandfetch.io/emaar.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.emaar.com' },
+      { n: 'Emaar Properties', u: 'https://opnergcimvcujebqoerc.supabase.co/storage/v1/object/public/site-media/logos/emaar-logo.png', l: 'https://www.emaar.com' },
       { n: 'DAMAC Properties', u: 'https://cdn.brandfetch.io/damacproperties.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.damacproperties.com' },
       { n: 'Sobha Realty', u: 'https://cdn.brandfetch.io/sobharealty.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.sobharealty.com' },
       { n: 'Omniyat', u: 'https://cdn.brandfetch.io/omniyat.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.omniyat.com' },
@@ -71,7 +71,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
       e(`developers.logo.${i}.url`, seeded.l, 'url', 'Developer Logos', `Logo ${i} · Link (optional)`),
     ];
   }),
-  e('global.topbar.address', 'Binary Tower, Business Bay, Dubai', 'text', 'Top Bar', 'Address line'),
+  e('global.topbar.address', 'Tamani Art Tower, Business Bay, Dubai', 'text', 'Top Bar', 'Address line'),
   e('global.topbar.email', 'info@karimi.ae', 'text', 'Top Bar', 'Email'),
   e('global.topbar.phone', '+971 52 868 0423', 'text', 'Top Bar', 'Phone'),
   e('global.topbar.rera', 'RERA Registered', 'text', 'Top Bar', 'RERA badge text'),
@@ -88,7 +88,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('home.hero.vertical', 'LUXURY REAL ESTATE ADVISORY', 'text', 'Home · Hero', 'Vertical left label'),
   e('home.hero.title', 'Buy Property', 'text', 'Home · Hero', 'Title line 1'),
   e('home.hero.title2', 'In Dubai', 'text', 'Home · Hero', 'Title line 2'),
-  e('home.hero.description', 'Expert guidance for those who want more than just a property — they want clarity, confidence, and long-term value.', 'longtext', 'Home · Hero', 'Description'),
+  e('home.hero.description', 'Expert guidance for those who want more than just a property. They want clarity, confidence, and long-term value.', 'longtext', 'Home · Hero', 'Description'),
   e('home.hero.cta1', 'Book A Consultation', 'text', 'Home · Hero', 'CTA button 1'),
   e('home.hero.cta2', 'Call Now +971 52 868 0423', 'text', 'Home · Hero', 'CTA button 2'),
   e('home.hero.stat1.n', '150+', 'text', 'Home · Hero', 'Stat 1 number'),
@@ -137,7 +137,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('home.doctrine.quote1', 'Dubai rewards patience,', 'text', 'Home · Doctrine', 'Quote line 1'),
   e('home.doctrine.quote2', 'data, and honest counsel.', 'text', 'Home · Doctrine', 'Quote line 2'),
   e('home.doctrine.quote3', 'We bring all three.', 'text', 'Home · Doctrine', 'Quote line 3 (italic)'),
-  e('home.doctrine.description', 'After advising on over AED 2 billion in Dubai property, one truth has held constant: the best returns come from the calmest decisions — and the calmest decisions come from the clearest counsel.', 'longtext', 'Home · Doctrine', 'Description'),
+  e('home.doctrine.description', 'After advising on over AED 2 billion in Dubai property, one truth has held constant: the best returns come from the calmest decisions, and the calmest decisions come from the clearest counsel.', 'longtext', 'Home · Doctrine', 'Description'),
   e('home.doctrine.signature.name', 'Karimi Advisory Desk', 'text', 'Home · Doctrine', 'Signature name'),
   e('home.doctrine.signature.location', 'Business Bay, Dubai', 'text', 'Home · Doctrine', 'Signature location'),
   e('home.doctrine.bg', 'https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=2000', 'image', 'Home · Doctrine', 'Background image'),
@@ -183,16 +183,16 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('home.process.1.title', 'Discovery', 'text', 'Home · Process', 'Step 1 title'),
   e('home.process.1.text', 'A private consultation to understand your goals, horizon and risk.', 'text', 'Home · Process', 'Step 1 text'),
   e('home.process.2.title', 'Curation', 'text', 'Home · Process', 'Step 2 title'),
-  e('home.process.2.text', 'We shortlist only the projects that fit your strategy — off-plan or ready.', 'text', 'Home · Process', 'Step 2 text'),
+  e('home.process.2.text', 'We shortlist only the projects that fit your strategy, off-plan or ready.', 'text', 'Home · Process', 'Step 2 text'),
   e('home.process.3.title', 'Execution', 'text', 'Home · Process', 'Step 3 title'),
   e('home.process.3.text', 'We negotiate, structure payment plans and handle end-to-end paperwork.', 'text', 'Home · Process', 'Step 3 text'),
   e('home.process.4.title', 'Stewardship', 'text', 'Home · Process', 'Step 4 title'),
-  e('home.process.4.text', 'Handover, leasing, resale — a lifetime relationship, not a transaction.', 'text', 'Home · Process', 'Step 4 text'),
+  e('home.process.4.text', 'Handover, leasing, resale. A lifetime relationship, not a transaction.', 'text', 'Home · Process', 'Step 4 text'),
 
   // ROI
   e('home.roi.eyebrow', 'Investment Intelligence', 'text', 'Home · ROI', 'Eyebrow'),
   e('home.roi.title', 'Run the numbers, honestly.', 'text', 'Home · ROI', 'Title'),
-  e('home.roi.description', 'A transparent ROI model based on current Dubai market benchmarks — no inflated assumptions.', 'longtext', 'Home · ROI', 'Description'),
+  e('home.roi.description', 'A transparent ROI model based on current Dubai market benchmarks. No inflated assumptions.', 'longtext', 'Home · ROI', 'Description'),
 
   // Golden Visa
   e('home.visa.badge', 'UAE Golden Visa', 'text', 'Home · Golden Visa', 'Badge'),
@@ -222,10 +222,10 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('home.personas.1.text', 'Capital allocators seeking yield, appreciation and USD-pegged stability in a tax-free jurisdiction.', 'longtext', 'Home · Personas', 'Persona 1 text'),
   e('home.personas.1.img', 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800', 'image', 'Home · Personas', 'Persona 1 image'),
   e('home.personas.2.title', 'HNW Families', 'text', 'Home · Personas', 'Persona 2 title'),
-  e('home.personas.2.text', 'Multi-generational families relocating to Dubai — schools, lifestyle, residency and legacy planning.', 'longtext', 'Home · Personas', 'Persona 2 text'),
+  e('home.personas.2.text', 'Multi-generational families relocating to Dubai. Schools, lifestyle, residency and legacy planning.', 'longtext', 'Home · Personas', 'Persona 2 text'),
   e('home.personas.2.img', 'https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=800', 'image', 'Home · Personas', 'Persona 2 image'),
   e('home.personas.3.title', 'End-Users & First-Timers', 'text', 'Home · Personas', 'Persona 3 title'),
-  e('home.personas.3.text', 'Residents of Dubai making their first owned home — guided, not sold, to the right community.', 'longtext', 'Home · Personas', 'Persona 3 text'),
+  e('home.personas.3.text', 'Residents of Dubai making their first owned home. Guided, not sold, to the right community.', 'longtext', 'Home · Personas', 'Persona 3 text'),
   e('home.personas.3.img', 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800', 'image', 'Home · Personas', 'Persona 3 image'),
 
   // Insights preview
@@ -236,7 +236,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   // FAQ
   e('home.faq.eyebrow', 'Answers First', 'text', 'Home · FAQ', 'Eyebrow'),
   e('home.faq.title', 'Questions, answered.', 'text', 'Home · FAQ', 'Title'),
-  e('home.faq.description', 'From Golden Visa to rental yields — the answers our clients ask us every day.', 'longtext', 'Home · FAQ', 'Description'),
+  e('home.faq.description', 'From Golden Visa to rental yields, the answers our clients ask us every day.', 'longtext', 'Home · FAQ', 'Description'),
   e('home.faq.cta', 'Ask a Private Question', 'text', 'Home · FAQ', 'CTA button'),
 
   // Final CTA
@@ -252,13 +252,13 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('about.hero.bg', 'https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=1920', 'image', 'About · Hero', 'Background'),
   e('about.hero.eyebrow', 'About Karimi', 'text', 'About · Hero', 'Eyebrow'),
   e('about.hero.title', 'A firm built on counsel, not commission.', 'text', 'About · Hero', 'Title'),
-  e('about.hero.description', "We are Dubai's advisory-first real estate firm — trusted by investors from 32 countries to guide them into the city's most defining properties.", 'longtext', 'About · Hero', 'Description'),
+  e('about.hero.description', "We are Dubai's advisory-first real estate firm, trusted by investors from 32 countries to guide them into the city's most defining properties.", 'longtext', 'About · Hero', 'Description'),
   e('about.story.img', 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1600', 'image', 'About · Story', 'Story image'),
   e('about.story.eyebrow', 'Our Story', 'text', 'About · Story', 'Eyebrow'),
   e('about.story.title', 'Why we exist.', 'text', 'About · Story', 'Title'),
-  e('about.story.p1', "Karimi was founded on a simple observation: Dubai's property market rewards those with access and punishes those without counsel. Most agencies sell — we advise.", 'longtext', 'About · Story', 'Paragraph 1'),
+  e('about.story.p1', "Karimi was founded on a simple observation: Dubai's property market rewards those with access and punishes those without counsel. Most agencies sell. We advise.", 'longtext', 'About · Story', 'Paragraph 1'),
   e('about.story.p2', "By taking our fee exclusively from developers, we've aligned with the only party that matters: the buyer. Every recommendation is earned. Every allocation is earned.", 'longtext', 'About · Story', 'Paragraph 2'),
-  e('about.story.p3', 'Today, from our offices in The Binary Tower by Omniyat, we serve a global clientele of private investors, family offices, and end-users who demand discretion, data, and integrity in equal measure.', 'longtext', 'About · Story', 'Paragraph 3'),
+  e('about.story.p3', 'Today, from our offices in Tamani Art Tower, Business Bay, we serve a global clientele of private investors, family offices, and end-users who demand discretion, data, and integrity in equal measure.', 'longtext', 'About · Story', 'Paragraph 3'),
   e('about.principles.eyebrow', 'Our Principles', 'text', 'About · Principles', 'Eyebrow'),
   e('about.principles.title', 'Four values. Zero exceptions.', 'text', 'About · Principles', 'Title'),
   e('about.principles.1.t', 'Integrity', 'text', 'About · Principles', 'Value 1 title'),
@@ -266,11 +266,11 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('about.principles.2.t', 'Discretion', 'text', 'About · Principles', 'Value 2 title'),
   e('about.principles.2.d', 'Your portfolio, your timeline, your privacy. No public listings where inappropriate.', 'text', 'About · Principles', 'Value 2 text'),
   e('about.principles.3.t', 'Global Fluency', 'text', 'About · Principles', 'Value 3 title'),
-  e('about.principles.3.d', 'English, Arabic, Hindi, Russian, Mandarin — we speak the language of every client.', 'text', 'About · Principles', 'Value 3 text'),
+  e('about.principles.3.d', 'English, Arabic, Hindi, Russian, Mandarin. We speak the language of every client.', 'text', 'About · Principles', 'Value 3 text'),
   e('about.principles.4.t', 'Expertise', 'text', 'About · Principles', 'Value 4 title'),
   e('about.principles.4.d', 'RERA-certified brokers with decades of Dubai market experience across every asset class.', 'text', 'About · Principles', 'Value 4 text'),
   e('about.visit.title', 'Visit us in Business Bay.', 'text', 'About · Visit', 'Title'),
-  e('about.visit.description', '21st Floor, Office No. 31, The Binary Tower by Omniyat. A private advisory suite overlooking the Burj Khalifa.', 'longtext', 'About · Visit', 'Description'),
+  e('about.visit.description', '8th Floor, Office No. 0810, Tamani Art Tower, Al Asayel Street, Business Bay, Dubai. A private advisory suite in the heart of Business Bay.', 'longtext', 'About · Visit', 'Description'),
   e('about.visit.cta', 'Schedule a Visit', 'text', 'About · Visit', 'CTA'),
 
   // ============ DEVELOPERS ============
@@ -337,7 +337,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('footer.locations.5', 'Dubai Hills Estate', 'text', 'Footer', 'Location 5'),
   e('footer.locations.6', 'Emaar Beachfront', 'text', 'Footer', 'Location 6'),
   e('footer.contact.title', 'Contact', 'text', 'Footer', 'Contact column title'),
-  e('footer.contact.address', '21st Floor, Office 31, The Binary Tower by Omniyat, Business Bay, Dubai', 'text', 'Footer', 'Address'),
+  e('footer.contact.address', '8th Floor, Office No. 0810, Tamani Art Tower, Al Asayel Street, Business Bay, Dubai', 'text', 'Footer', 'Address'),
   e('footer.contact.phone', '+971 52 868 0423 | 04 558 4435', 'text', 'Footer', 'Phone'),
   e('footer.contact.email', 'info@karimi.ae', 'text', 'Footer', 'Email'),
   e('footer.legal.copyright', '© {year} Karimi Real Estate LLC. All rights reserved. RERA Registered.', 'text', 'Footer', 'Copyright (use {year})'),
