@@ -52,7 +52,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   ...Array.from({ length: 12 }).flatMap((_, idx) => {
     const i = idx + 1;
     const seeded = [
-      { n: 'Emaar Properties', u: 'https://opnergcimvcujebqoerc.supabase.co/storage/v1/object/public/site-media/logos/emaar-logo.png', l: 'https://www.emaar.com' },
+      { n: 'Emaar Properties', u: 'https://opnergcimvcujebqoerc.supabase.co/storage/v1/object/public/site-media/logos/emaar-logo-v2.png', l: 'https://www.emaar.com' },
       { n: 'DAMAC Properties', u: 'https://cdn.brandfetch.io/damacproperties.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.damacproperties.com' },
       { n: 'Sobha Realty', u: 'https://cdn.brandfetch.io/sobharealty.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.sobharealty.com' },
       { n: 'Omniyat', u: 'https://cdn.brandfetch.io/omniyat.com/w/200/h/60?c=1id64Mup7ac', l: 'https://www.omniyat.com' },
@@ -249,7 +249,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('home.cta.btn2', 'WhatsApp Us', 'text', 'Home · Final CTA', 'Button 2'),
 
   // ============ ABOUT ============
-  e('about.hero.bg', 'https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=1920', 'image', 'About · Hero', 'Background'),
+  e('about.hero.bg', 'https://opnergcimvcujebqoerc.supabase.co/storage/v1/object/public/site-media/about/hero-group-photo.jpg', 'image', 'About · Hero', 'Background'),
   e('about.hero.eyebrow', 'About Karimi', 'text', 'About · Hero', 'Eyebrow'),
   e('about.hero.title', 'A firm built on counsel, not commission.', 'text', 'About · Hero', 'Title'),
   e('about.hero.description', "We are Dubai's advisory-first real estate firm, trusted by investors from 32 countries to guide them into the city's most defining properties.", 'longtext', 'About · Hero', 'Description'),

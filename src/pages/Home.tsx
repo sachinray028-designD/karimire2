@@ -434,33 +434,56 @@ export default function Home() {
       <section className="py-12 md:py-20 bg-white">
         <div className="container-px">
           <div className="text-center max-w-3xl mx-auto reveal mb-10 md:mb-14">
-            <div className="eyebrow justify-center"><span className="w-8 h-px bg-crimson"/>Latest UAE Visa Policy Updates</div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl text-navy">New Visa Regulations for Property Investors</h2>
-            <p className="mt-5 text-navy/70 text-lg">The UAE has introduced significant updates to its property-linked residency policies in 2026, making it easier than ever for investors to secure long-term residency.</p>
+            <div className="eyebrow justify-center"><span className="w-8 h-px bg-crimson"/>Important Update</div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl text-navy">2-Year Property Owner Visa Just Got Easier!</h2>
+            <p className="mt-5 text-navy/70 text-lg font-medium">New Rules. More Opportunities. Greater Flexibility.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 reveal">
-            {/* Golden Visa Card */}
-            <div className="bg-navy p-7 md:p-9 text-white hover-lift border border-navy/20">
-              <div className="inline-flex items-center gap-2 bg-crimson/20 border border-crimson/40 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson-200 mb-5">10-Year Golden Visa</div>
-              <h3 className="font-display text-2xl">Property Investment Route</h3>
-              <ul className="mt-5 space-y-3 text-white/75 text-sm leading-relaxed">
+          {/* Main 2-year visa highlight */}
+          <div className="grid md:grid-cols-2 gap-6 reveal mb-8">
+            {/* Single Owner */}
+            <div className="border-2 border-green-500 rounded-lg p-7 md:p-9 bg-green-50 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center shrink-0">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                </div>
+                <h3 className="font-bold text-green-800 text-xl tracking-wide uppercase">Single Property Owner?</h3>
+              </div>
+              <p className="text-green-900 text-base">You can now apply</p>
+              <div className="bg-green-500 text-white font-bold text-center py-3 px-4 rounded flex items-center justify-center gap-3 text-base md:text-lg">
+                WITH NO MINIMUM PROPERTY VALUE! &#10003;
+              </div>
+            </div>
+            {/* Multiple Owners */}
+            <div className="border-2 border-blue-600 rounded-lg p-7 md:p-9 bg-blue-50 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <h3 className="font-bold text-blue-800 text-xl tracking-wide uppercase">Multiple Property Owners?</h3>
+              </div>
+              <p className="text-blue-900 text-base">Each owner must have a minimum</p>
+              <div className="bg-blue-700 text-white font-bold text-center py-3 px-4 rounded flex items-center justify-center gap-3 text-base md:text-lg">
+                SHARE OF AED 400,000 OR MORE &#10003;
+              </div>
+            </div>
+          </div>
+          {/* Info banner */}
+          <div className="reveal bg-amber-50 border border-amber-300 rounded-lg p-5 flex flex-col sm:flex-row items-center gap-4 mb-8">
+            <div className="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center shrink-0 text-white font-bold text-xl">!</div>
+            <p className="text-amber-900 text-base text-center sm:text-left flex-1">This update opens the door for more property owners to apply for UAE residency through property ownership.</p>
+            <div className="shrink-0 bg-crimson text-white text-xs font-bold px-4 py-2 rounded text-center uppercase tracking-wide">New Rules<br/>New Opportunities</div>
+          </div>
+          {/* Additional visa types */}
+          <div className="reveal grid md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-navy p-7 text-white rounded-lg">
+              <div className="inline-flex items-center gap-2 bg-crimson/20 border border-crimson/40 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson-200 mb-4">10-Year Golden Visa</div>
+              <h3 className="font-display text-2xl mb-4">Property Investment Route</h3>
+              <ul className="space-y-3 text-white/80 text-sm leading-relaxed">
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Minimum investment: AED 2 Million</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>50% upfront payment requirement removed (Feb 2026)</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Multiple properties can be combined</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Mortgaged and off-plan properties now qualify</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Covers spouse, children, and parents</li>
-                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>No sponsor or employer needed</li>
-              </ul>
-            </div>
-            {/* 2-Year Investor Visa Card */}
-            <div className="bg-navy-50/40 p-7 md:p-9 text-navy hover-lift border border-navy/10">
-              <div className="inline-flex items-center gap-2 bg-crimson/10 border border-crimson/30 px-3 py-1.5 text-[10px] tracking-[0.25em] uppercase text-crimson mb-5">2-Year Investor Visa</div>
-              <h3 className="font-display text-2xl">Simplified Property Visa</h3>
-              <ul className="mt-5 space-y-3 text-navy/75 text-sm leading-relaxed">
-                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Sole owners: No minimum property value required</li>
-                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Joint owners: AED 400,000 minimum per co-owner</li>
-                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Renewable every 2 years</li>
-                <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Family visa sponsorship available</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>No employer or sponsor needed</li>
                 <li className="flex gap-2"><span className="text-crimson shrink-0">&#10003;</span>Available for all Dubai freehold zones</li>
               </ul>
