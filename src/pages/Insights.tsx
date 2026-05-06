@@ -5,6 +5,39 @@ import { useReveal } from '../lib/useReveal';
 import { ArrowLeft } from 'lucide-react';
 import { Seo } from '../lib/seo';
 
+// Detects if a line is a subheading: short (under 90 chars), doesn't end with sentence punctuation
+function isSubheading(line: string) {
+  const trimmed = line.trim();
+  if (!trimmed || trimmed.length > 90) return false;
+  return !/[.,;]$/.test(trimmed);
+}
+
+function BlogContent({ content }: { content: string }) {
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let paraBuffer: string[] = [];
+
+  const flushPara = () => {
+    const text = paraBuffer.join(' ').trim();
+    if (text) elements.push(<p key={elements.length} className="text-navy/75 text-lg leading-relaxed mb-5">{text}</p>);
+    paraBuffer = [];
+  };
+
+  lines.forEach((line) => {
+    if (isSubheading(line)) {
+      flushPara();
+      elements.push(<h3 key={elements.length} className="font-bold text-navy text-xl mt-8 mb-3">{line.trim()}</h3>);
+    } else if (line.trim() === '') {
+      flushPara();
+    } else {
+      paraBuffer.push(line.trim());
+    }
+  });
+  flushPara();
+
+  return <div className="prose-custom">{elements}</div>;
+}
+
 export function InsightsList() {
   useReveal();
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -100,7 +133,7 @@ export function InsightDetail() {
         <div className="container-px max-w-3xl">
           <p className="text-xl text-navy/80 leading-relaxed font-light">{post.excerpt}</p>
           <div className="gold-divider my-10"/>
-          <div className="prose prose-lg text-navy/75 leading-relaxed whitespace-pre-line">{post.content}</div>
+          <BlogContent content={post.content} />
         </div>
       </section>
     </article>

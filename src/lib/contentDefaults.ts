@@ -253,7 +253,7 @@ export const CONTENT_DEFAULTS: ContentEntry[] = [
   e('about.hero.eyebrow', 'About Karimi', 'text', 'About · Hero', 'Eyebrow'),
   e('about.hero.title', 'A firm built on counsel, not commission.', 'text', 'About · Hero', 'Title'),
   e('about.hero.description', "We are Dubai's advisory-first real estate firm, trusted by investors from 32 countries to guide them into the city's most defining properties.", 'longtext', 'About · Hero', 'Description'),
-  e('about.story.img', 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1600', 'image', 'About · Story', 'Story image'),
+  e('about.story.img', 'https://opnergcimvcujebqoerc.supabase.co/storage/v1/object/public/site-media/about/story-meeting.jpg', 'image', 'About · Story', 'Story image'),
   e('about.story.eyebrow', 'Our Story', 'text', 'About · Story', 'Eyebrow'),
   e('about.story.title', 'Why we exist.', 'text', 'About · Story', 'Title'),
   e('about.story.p1', "Karimi was founded on a simple observation: Dubai's property market rewards those with access and punishes those without counsel. Most agencies sell. We advise.", 'longtext', 'About · Story', 'Paragraph 1'),
