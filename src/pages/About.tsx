@@ -99,7 +99,7 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-3 gap-6 reveal">
             {GALLERY.map((img) => (
-              <div key={img.src} className="group overflow-hidden rounded-sm" style={{height: '360px'}}>
+              <div key={img.src} className="group overflow-hidden rounded-sm aspect-[3/4]">
                 <img
                   src={img.src}
                   alt={img.alt}
