@@ -99,11 +99,11 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-3 gap-6 reveal">
             {GALLERY.map((img) => (
-              <div key={img.src} className="group overflow-hidden aspect-[4/3]">
+              <div key={img.src} className="group overflow-hidden rounded-sm" style={{height: '360px'}}>
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             ))}

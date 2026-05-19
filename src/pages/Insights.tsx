@@ -123,14 +123,14 @@ export function InsightDetail() {
       <section className="relative pt-20 h-[60vh] min-h-[400px]">
         <img src={post.cover_image} alt={post.title} className="absolute inset-0 w-full h-full object-cover"/>
         <div className="absolute inset-0 bg-navy/70"/>
-        <div className="container-px relative h-full flex flex-col justify-end pb-12 max-w-4xl">
+        <div className="container-px relative h-full flex flex-col justify-end pb-12 max-w-4xl mx-auto">
           <Link to="/insights" className="text-white/70 text-sm flex items-center gap-2 mb-4 hover:text-white"><ArrowLeft size={14}/>All Insights</Link>
           <div className="flex gap-3 text-[11px] tracking-[0.25em] uppercase text-crimson-200"><span>{post.category}</span><span>{post.read_time}</span></div>
           <h1 className="mt-3 font-display text-white text-4xl md:text-6xl">{post.title}</h1>
         </div>
       </section>
       <section className="py-16 bg-white">
-        <div className="container-px max-w-3xl">
+        <div className="container-px max-w-3xl mx-auto">
           <p className="text-xl text-navy/80 leading-relaxed font-light">{post.excerpt}</p>
           <div className="gold-divider my-10"/>
           <BlogContent content={post.content} />
