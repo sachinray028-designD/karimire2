@@ -65,6 +65,8 @@ export type BlogPost = {
   author: string;
   category: string;
   read_time: string;
+  seo_title?: string;
+  meta_description?: string;
   created_at: string;
 };
 

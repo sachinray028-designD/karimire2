@@ -56,6 +56,53 @@
     background: linear-gradient(90deg, transparent, #c9a24a, transparent);
     height: 1px;
   }
+  
+  /* Markdown Content Styles */
+  .prose-custom {
+    @apply text-navy/80 text-lg leading-relaxed;
+  }
+  .prose-custom p {
+    @apply mb-6;
+  }
+  .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+    @apply font-display text-navy mb-4 mt-12;
+  }
+  .prose-custom h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  .prose-custom h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  .prose-custom h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  .prose-custom ul {
+    @apply list-disc pl-6 mb-6 space-y-2;
+  }
+  .prose-custom ol {
+    @apply list-decimal pl-6 mb-6 space-y-2;
+  }
+  .prose-custom blockquote {
+    @apply border-l-4 border-crimson pl-6 py-2 my-8 italic text-navy/70 text-xl font-display bg-navy-50/50;
+  }
+  .prose-custom a {
+    @apply text-crimson font-medium hover:text-navy transition-colors underline decoration-crimson/30 underline-offset-4;
+  }
+  .prose-custom strong {
+    @apply font-bold text-navy;
+  }
+  .prose-custom table {
+    @apply w-full text-left border-collapse my-8 text-sm md:text-base;
+  }
+  .prose-custom th, .prose-custom td {
+    @apply p-4 border-b border-gray-200;
+  }
+  .prose-custom th {
+    @apply font-bold text-navy bg-navy-50/50;
+  }
+  .prose-custom tr:last-child td {
+    @apply border-0;
+  }
 }
 
 .reveal {
