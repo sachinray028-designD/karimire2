@@ -3,7 +3,7 @@ import { Seo } from '../lib/seo';
 export function Privacy() {
   return (
     <>
-    <Seo page="privacy" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'Privacy', url: 'https://karimi.ae/privacy' }]} />
+    <Seo page="privacy" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Privacy', url: '/privacy' }]} />
     <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-white">
       <div className="container-px max-w-3xl">
         <h1 className="font-display text-5xl text-navy">Privacy Policy</h1>
@@ -25,7 +25,7 @@ export function Privacy() {
 export function Terms() {
   return (
     <>
-    <Seo page="terms" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'Terms', url: 'https://karimi.ae/terms' }]} />
+    <Seo page="terms" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Terms', url: '/terms' }]} />
     <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-white">
       <div className="container-px max-w-3xl">
         <h1 className="font-display text-5xl text-navy">Terms & Conditions</h1>

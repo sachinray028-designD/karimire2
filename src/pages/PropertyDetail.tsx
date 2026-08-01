@@ -5,12 +5,15 @@ import { supabase, type Property } from '../lib/supabase';
 import { formatAED, useReveal } from '../lib/useReveal';
 import InquiryForm from '../components/InquiryForm';
 import { Seo } from '../lib/seo';
+import { getSSGData } from '../lib/ssgData';
 
 export default function PropertyDetail() {
   useReveal();
   const { slug } = useParams();
-  const [p, setP] = useState<Property | null>(null);
-  const [loading, setLoading] = useState(true);
+  const ssg = getSSGData();
+  const ssgProperty = ssg?.properties.find(p => p.slug === slug);
+  const [p, setP] = useState<Property | null>(ssgProperty || null);
+  const [loading, setLoading] = useState(!ssgProperty);
   const [unlocked, setUnlocked] = useState(false);
   const [activeImg, setActiveImg] = useState(0);
 
@@ -36,29 +39,29 @@ export default function PropertyDetail() {
       <Seo
         page="properties"
         titleOverride={`${p.project_name} by ${p.developer_name} in ${p.location} | Karimi Real Estate`}
-        descriptionOverride={(p as any).short_description || `${p.property_type} in ${p.location} by ${p.developer_name}. Handover ${p.handover_date}.`}
-        canonicalOverride={`https://karimi.ae/properties/${p.slug}`}
+        descriptionOverride={`${p.property_type} in ${p.location} by ${p.developer_name}. Handover ${p.handover_date}.`}
+        canonicalOverride={`https://www.karimi.ae/properties/${p.slug}`}
         imageOverride={gallery[0]}
         breadcrumbs={[
-          { name: 'Home', url: 'https://karimi.ae/' },
-          { name: 'Properties', url: 'https://karimi.ae/properties' },
-          { name: p.project_name, url: `https://karimi.ae/properties/${p.slug}` },
+          { name: 'Home', url: 'https://www.karimi.ae/' },
+          { name: 'Properties', url: 'https://www.karimi.ae/properties' },
+          { name: p.project_name, url: `https://www.karimi.ae/properties/${p.slug}` },
         ]}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'Residence',
           name: p.project_name,
-          url: `https://karimi.ae/properties/${p.slug}`,
+          url: `https://www.karimi.ae/properties/${p.slug}`,
           image: gallery,
           address: {
             '@type': 'PostalAddress',
             addressLocality: p.location,
             addressCountry: 'AE',
           },
-          offers: (p as any).price ? {
+          offers: p.starting_price ? {
             '@type': 'Offer',
-            price: (p as any).price,
-            priceCurrency: 'AED',
+            price: p.starting_price,
+            priceCurrency: p.currency || 'AED',
             availability: 'https://schema.org/InStock',
           } : undefined,
           brand: { '@type': 'Organization', name: p.developer_name },

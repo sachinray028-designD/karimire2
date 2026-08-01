@@ -5,11 +5,13 @@ import { supabase, type Property, type Testimonial, type BlogPost } from '../lib
 import { useReveal } from '../lib/useReveal';
 import PropertyCard from '../components/PropertyCard';
 import RoiCalculator from '../components/RoiCalculator';
-import Faq from '../components/Faq';
+import Faq, { FAQS } from '../components/Faq';
 import { useDeveloperLogos, DeveloperLogo } from '../components/DeveloperLogos';
 import { useT, useSection } from '../lib/content';
 import { Seo } from '../lib/seo';
 import { BookConsultationButton } from '../components/ConsultationModal';
+import { getSSGData } from '../lib/ssgData';
+import OfficialSources from '../components/OfficialSources';
 
 const AWARDS = [
   { label: 'Property Finder', year: '2024 Elite Agent' },
@@ -84,9 +86,12 @@ export default function Home() {
     value: parseFloat(t(`home.stats.${i}.value`)) || 0,
     suffix: t(`home.stats.${i}.suffix`),
   }));
-  const [featured, setFeatured] = useState<Property[]>([]);
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const ssg = getSSGData();
+  const [featured, setFeatured] = useState<Property[]>(
+    ssg?.properties.filter(p => p.featured).slice(0, 6) || []
+  );
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(ssg?.testimonials || []);
+  const [posts, setPosts] = useState<BlogPost[]>(ssg?.blogPosts.slice(0, 3) || []);
   const [statsActive, setStatsActive] = useState(false);
   const [tIdx, setTIdx] = useState(0);
   const [search, setSearch] = useState({ location: '', type: '', budget: '', status: '' });
@@ -114,7 +119,18 @@ export default function Home() {
 
   return (
     <>
-      <Seo page="home" />
+      <Seo page="home" jsonLd={[{
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQS.map(f => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.a,
+          },
+        })),
+      }]} />
       {/* HERO — editorial oversized title over Dubai skyline */}
       {show.hero && <section className="relative h-screen min-h-[560px] w-full overflow-hidden flex flex-col">
         <img src={t('home.hero.bg')} alt="Dubai" className="absolute inset-0 w-full h-full object-cover"/>
@@ -634,6 +650,9 @@ export default function Home() {
           <div className="lg:col-span-2 reveal">
             <Faq/>
           </div>
+        </div>
+        <div className="container-px mt-16 border-t border-navy/10 pt-16">
+          <OfficialSources />
         </div>
       </section>}
 

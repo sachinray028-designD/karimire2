@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-const url = import.meta.env.VITE_SUPABASE_URL as string;
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const url = (typeof import.meta !== 'undefined' ? import.meta.env?.VITE_SUPABASE_URL : '') || '';
+const anon = (typeof import.meta !== 'undefined' ? import.meta.env?.VITE_SUPABASE_ANON_KEY : '') || '';
 
-export const supabase = createClient(url, anon, {
-  auth: { persistSession: true, autoRefreshToken: true },
+export const supabase = createClient(url || 'https://placeholder.supabase.co', anon || 'placeholder', {
+  auth: { persistSession: typeof window !== 'undefined', autoRefreshToken: typeof window !== 'undefined' },
 });
 
 export type Property = {
@@ -65,6 +65,7 @@ export type BlogPost = {
   author: string;
   category: string;
   read_time: string;
+  published: boolean;
   seo_title?: string;
   meta_description?: string;
   created_at: string;

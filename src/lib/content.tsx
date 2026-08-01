@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { supabase } from './supabase';
 import { CONTENT_DEFAULTS, CONTENT_MAP } from './contentDefaults';
+import { getSSGData } from './ssgData';
 
 type Ctx = {
   values: Record<string, string>;
@@ -11,10 +12,13 @@ type Ctx = {
 const ContentCtx = createContext<Ctx>({ values: {}, loaded: false, refresh: async () => {} });
 
 export function ContentProvider({ children }: { children: ReactNode }) {
-  const [values, setValues] = useState<Record<string, string>>(
-    Object.fromEntries(CONTENT_DEFAULTS.map((c) => [c.key, c.value]))
-  );
-  const [loaded, setLoaded] = useState(false);
+  const ssg = getSSGData();
+  const initialValues = Object.fromEntries(CONTENT_DEFAULTS.map((c) => [c.key, c.value]));
+  if (ssg?.siteContent) {
+    Object.assign(initialValues, ssg.siteContent);
+  }
+  const [values, setValues] = useState<Record<string, string>>(initialValues);
+  const [loaded, setLoaded] = useState(!!ssg);
 
   const refresh = useCallback(async () => {
     const { data } = await supabase.from('site_content').select('key,value');

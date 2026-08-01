@@ -2,13 +2,25 @@ import { createClient } from '@supabase/supabase-js';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 
-// Uses the service role key to bypass RLS for importing
-const SUPABASE_URL = 'https://opnergcimvcujebqoerc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wbmVyZ2NpbXZjdWplYnFvZXJjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzQ2MDUyNywiZXhwIjoyMDkzMDM2NTI3fQ.sUOy1R25bejKvh-DydDYiZLAnkbAhUH5339RUzgdwI4';
+// Reads credentials from environment variables — never hardcode secrets
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error('Missing required environment variables:');
+  console.error('  SUPABASE_URL              — your Supabase project URL');
+  console.error('  SUPABASE_SERVICE_ROLE_KEY  — service_role key (from Supabase Dashboard > Settings > API)');
+  process.exit(1);
+}
 
-const BLOG_PACKAGE_DIR = 'D:/Work Folders/Karimi/karimi-blog-package/karimi-blog-package';
+const sb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+
+const BLOG_PACKAGE_DIR = process.argv[2];
+if (!BLOG_PACKAGE_DIR) {
+  console.error('Usage: node scripts/import-blogs.mjs <path-to-blog-package>');
+  console.error('Example: node scripts/import-blogs.mjs ./karimi-blog-package');
+  process.exit(1);
+}
 
 async function importBlogs() {
   console.log('Reading blogs_index.json...');

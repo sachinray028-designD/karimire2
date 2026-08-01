@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { Helmet } from './helmet';
 import { supabase } from './supabase';
+import { getSSGData } from './ssgData';
+import { useT } from './content';
 
 export type SeoGlobal = {
   site_name: string;
@@ -46,7 +48,7 @@ export type PageSeo = {
 
 const DEFAULT_GLOBAL: SeoGlobal = {
   site_name: 'Karimi Real Estate',
-  site_url: 'https://karimi.ae',
+  site_url: 'https://www.karimi.ae',
   default_title: 'Karimi Real Estate | Dubai Luxury Property Advisory',
   default_description:
     'Zero-commission advisory for luxury Dubai property. Direct developer allocations, Golden Visa guidance, and data-driven investment counsel.',
@@ -62,21 +64,67 @@ const DEFAULT_GLOBAL: SeoGlobal = {
   facebook_pixel_id: '',
   google_verification: '',
   bing_verification: '',
-  default_robots: 'index,follow',
+  default_robots: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1',
   robots_txt: '',
   organization_jsonld: '',
   local_business_jsonld: '',
   hreflang_json: '[]',
 };
 
-type Ctx = {
+const PAGE_DEFAULTS: Record<string, { title: string; description: string; route: string }> = {
+  home: {
+    title: 'Buy Luxury Property in Dubai | Zero-Commission Advisory | Karimi Real Estate',
+    description: 'Karimi Real Estate LLC offers zero-commission advisory for luxury Dubai property. Direct developer allocations, Golden Visa guidance, and data-driven investment counsel for international buyers.',
+    route: '/',
+  },
+  properties: {
+    title: 'Dubai Properties for Sale | Off-Plan & Ready Homes | Karimi Real Estate',
+    description: 'Browse curated Dubai properties for sale: luxury apartments, villas, townhouses and off-plan launches across Downtown, Palm Jumeirah, Marina, Business Bay and more.',
+    route: '/properties',
+  },
+  developers: {
+    title: 'Official Dubai Developer Partners | Emaar, DAMAC, Sobha | Karimi Real Estate',
+    description: 'Direct allocations with 40+ official Dubai developer partners including Emaar, DAMAC, Nakheel, Sobha, Omniyat, Meraas and more. Zero buyer commission.',
+    route: '/developers',
+  },
+  insights: {
+    title: 'Dubai Property Market Insights & Investment Guides | Karimi Real Estate',
+    description: 'Expert analysis on Dubai real estate: market trends, area guides, rental yield reports, Golden Visa updates and investor-grade research from RERA-certified advisors.',
+    route: '/insights',
+  },
+  about: {
+    title: 'About Karimi Real Estate | Dubai Advisory-First Property Firm',
+    description: 'Karimi Real Estate is Dubai\'s advisory-first luxury property firm, trusted by clients from 32 countries. RERA-registered, zero-commission, counsel-driven approach.',
+    route: '/about',
+  },
+  contact: {
+    title: 'Contact Karimi Real Estate | Dubai Property Advisory',
+    description: 'Speak to a senior Karimi advisor. Office in Business Bay, Dubai. Phone, WhatsApp, email or book a private consultation. RERA-certified team.',
+    route: '/contact',
+  },
+  privacy: {
+    title: 'Privacy Policy | Karimi Real Estate',
+    description: 'How Karimi Real Estate LLC collects, uses and protects your personal data under UAE data protection law.',
+    route: '/privacy',
+  },
+  terms: {
+    title: 'Terms of Service | Karimi Real Estate',
+    description: 'Terms governing use of the Karimi Real Estate website and advisory services in Dubai, UAE.',
+    route: '/terms',
+  },
+  notfound: {
+    title: 'Page Not Found | Karimi Real Estate',
+    description: 'The page you were looking for does not exist. Browse our Dubai properties or return to the home page.',
+    route: '/404',
+  },
+};
+
+const SeoCtx = createContext<{
   global: SeoGlobal;
   pages: Record<string, PageSeo>;
   loaded: boolean;
   refresh: () => Promise<void>;
-};
-
-const SeoCtx = createContext<Ctx>({
+}>({
   global: DEFAULT_GLOBAL,
   pages: {},
   loaded: false,
@@ -84,9 +132,10 @@ const SeoCtx = createContext<Ctx>({
 });
 
 export function SeoProvider({ children }: { children: ReactNode }) {
-  const [global, setGlobal] = useState<SeoGlobal>(DEFAULT_GLOBAL);
-  const [pages, setPages] = useState<Record<string, PageSeo>>({});
-  const [loaded, setLoaded] = useState(false);
+  const ssg = getSSGData();
+  const [global, setGlobal] = useState<SeoGlobal>(ssg?.seoGlobal || DEFAULT_GLOBAL);
+  const [pages, setPages] = useState<Record<string, PageSeo>>(ssg?.pageSeo || {});
+  const [loaded, setLoaded] = useState(!!ssg);
 
   const refresh = useCallback(async () => {
     const [g, p] = await Promise.all([
@@ -111,6 +160,77 @@ export function SeoProvider({ children }: { children: ReactNode }) {
 
 export function useSeoContext() {
   return useContext(SeoCtx);
+}
+
+/**
+ * The host that actually serves a 200. karimi.ae 301-redirects to www.karimi.ae,
+ * so www is the canonical origin.
+ *
+ * Everything absolute is forced through here because the values stored in
+ * Supabase (`seo_global.site_url` and every `page_seo.canonical` row) currently
+ * point at the bare domain. Declaring a canonical that immediately redirects is
+ * a conflicting signal, so we normalise rather than trust the stored value.
+ *
+ * If the redirect is ever flipped to prefer the bare domain, change this one
+ * constant.
+ */
+export const CANONICAL_ORIGIN = 'https://www.karimi.ae';
+
+export function toCanonicalUrl(value: string | undefined, fallbackPath = '/'): string {
+  const raw = (value || '').trim();
+  try {
+    const u = new URL(raw || fallbackPath, CANONICAL_ORIGIN);
+    return `${CANONICAL_ORIGIN}${u.pathname}${u.search}`;
+  } catch {
+    return `${CANONICAL_ORIGIN}${fallbackPath}`;
+  }
+}
+
+export function useSiteUrl() {
+  return CANONICAL_ORIGIN;
+}
+
+export function buildOrgSchema(global: SeoGlobal, t: (key: string, fallback?: string) => string) {
+  const site = CANONICAL_ORIGIN;
+
+  // The logo comes from the CMS and may be a site-relative path or an absolute
+  // Supabase storage URL (what the admin media uploader writes). Blindly
+  // prefixing the origin turns the latter into "https://www.karimi.aehttps://…".
+  const rawLogo = t('global.logo.header', '/karimi-logo_copy.png');
+  const logoUrl = /^https?:\/\//i.test(rawLogo)
+    ? rawLogo
+    : `${site}${rawLogo.startsWith('/') ? '' : '/'}${rawLogo}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateAgent',
+    '@id': `${site}/#organization`,
+    name: 'Karimi Real Estate LLC',
+    url: site,
+    logo: { '@type': 'ImageObject', url: logoUrl },
+    image: logoUrl,
+    description: global.default_description,
+    telephone: t('global.topbar.phone', '+971 52 868 0423'),
+    email: t('global.topbar.email', 'info@karimi.ae'),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: t('footer.contact.address', '8th Floor, Office No. 0810, Tamani Art Tower, Al Asayel Street, Business Bay, Dubai'),
+      addressLocality: 'Dubai',
+      addressRegion: 'Dubai',
+      addressCountry: 'AE',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: 'Dubai',
+    },
+    knowsAbout: ['Dubai Real Estate', 'Luxury Property', 'Off-Plan Investment', 'Golden Visa UAE'],
+    sameAs: [
+      t('social.linkedin.url', 'https://linkedin.com/company/karimi-real-estate'),
+      t('social.instagram.url', 'https://instagram.com/karimirealestate'),
+      t('social.facebook.url', 'https://facebook.com/karimirealestate'),
+      t('social.twitter.url', 'https://x.com/karimirealestate'),
+    ].filter(Boolean),
+  };
 }
 
 type SeoProps = {
@@ -147,13 +267,21 @@ export function Seo({
 }: SeoProps) {
   const { global, pages } = useSeoContext();
   const ps = pages[page];
+  const t = useT();
 
-  const title = titleOverride || ps?.title || global.default_title;
-  const description = descriptionOverride || ps?.description || global.default_description;
-  const canonical =
-    canonicalOverride ||
-    ps?.canonical ||
-    (ps?.route ? `${global.site_url.replace(/\/$/, '')}${ps.route}` : global.site_url);
+  let description = descriptionOverride || ps?.description || global.default_description;
+  if (!description || description.length < 80) {
+    description = PAGE_DEFAULTS[page]?.description || description;
+  }
+  const title = titleOverride || ps?.title || PAGE_DEFAULTS[page]?.title || global.default_title;
+  const site = CANONICAL_ORIGIN;
+  const fallbackRoute = PAGE_DEFAULTS[page]?.route;
+  const routePath = ps?.route || fallbackRoute;
+  // Normalised, so a stored canonical on the redirecting host cannot win.
+  const canonical = toCanonicalUrl(
+    canonicalOverride || ps?.canonical || routePath || '/',
+    '/',
+  );
   const robots = noindex ? 'noindex,nofollow' : ps?.robots || global.default_robots;
   const keywords = ps?.keywords || '';
   const ogTitle = ps?.og_title || title;
@@ -188,6 +316,9 @@ export function Seo({
     });
   }
 
+  // Emit business identity on every page
+  schemas.push(buildOrgSchema(global, t));
+
   if (breadcrumbs && breadcrumbs.length > 0) {
     schemas.push({
       '@context': 'https://schema.org',
@@ -196,7 +327,11 @@ export function Seo({
         '@type': 'ListItem',
         position: i + 1,
         name: b.name,
-        item: b.url,
+        // Schema.org requires an absolute URL here. Relative paths like "/about"
+        // are invalid and Google discards the breadcrumb rich result.
+        item: /^https?:\/\//i.test(b.url)
+          ? b.url
+          : `${site}${b.url.startsWith('/') ? '' : '/'}${b.url}`,
       })),
     });
   }

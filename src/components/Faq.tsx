@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 
-const FAQS = [
+export const FAQS = [
   { q: 'How does Karimi\'s zero-commission model really work?', a: 'When you buy through Karimi, our fee is paid by the developer of the property you acquire, not by you. Developers budget 2-4% for distribution; we recover that on the listing side so your purchase price is unchanged and you pay us nothing.' },
   { q: 'Can foreigners buy property in Dubai?', a: 'Yes. Non-UAE nationals can purchase freehold in designated zones including Downtown, Palm Jumeirah, Dubai Marina, Business Bay, Dubai Hills, Emaar Beachfront and many more. Freehold grants full ownership, transferable to heirs.' },
   { q: 'What is the minimum investment for a Golden Visa?', a: 'AED 2 million equity in property (single unit or aggregate). Mortgaged properties qualify provided AED 2M of equity has been paid. The visa is renewable every 10 years.' },
@@ -16,8 +16,8 @@ export default function Faq() {
     <div className="divide-y divide-navy/10 border-y border-navy/10">
       {FAQS.map((f, i) => (
         <div key={i}>
-          <button onClick={() => setOpen(open === i ? null : i)} className="w-full py-6 flex items-center justify-between gap-6 text-left group">
-            <span className="font-display text-lg md:text-xl text-navy group-hover:text-crimson transition-colors">{f.q}</span>
+          <button onClick={() => setOpen(open === i ? null : i)} className="w-full py-6 flex items-center justify-between gap-6 text-left group" aria-expanded={open === i}>
+            <h3 className="font-display text-lg md:text-xl text-navy group-hover:text-crimson transition-colors m-0 font-normal">{f.q}</h3>
             <span className="w-9 h-9 border border-navy/20 flex items-center justify-center shrink-0 group-hover:border-crimson transition-colors">
               {open === i ? <Minus size={15} className="text-crimson"/> : <Plus size={15} className="text-navy group-hover:text-crimson"/>}
             </span>

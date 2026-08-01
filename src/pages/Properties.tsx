@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal, Search, X } from 'lucide-react';
 import { supabase, type Property } from '../lib/supabase';
 import PropertyCard from '../components/PropertyCard';
 import { useReveal } from '../lib/useReveal';
 import { Seo } from '../lib/seo';
+import { getSSGData } from '../lib/ssgData';
 
 export default function Properties() {
   useReveal();
   const [params, setParams] = useSearchParams();
-  const [all, setAll] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(true);
+  const ssg = getSSGData();
+  const [all, setAll] = useState<Property[]>(ssg?.properties || []);
+  const [loading, setLoading] = useState(!ssg?.properties?.length);
   const [q, setQ] = useState(params.get('q') || '');
   const [type, setType] = useState(params.get('type') || '');
   const [status, setStatus] = useState(params.get('status') || '');
@@ -60,18 +62,18 @@ export default function Properties() {
     <>
       <Seo
         page="properties"
-        breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'Properties', url: 'https://karimi.ae/properties' }]}
+        breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Properties', url: '/properties' }]}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           name: 'Dubai Properties for Sale',
-          url: 'https://karimi.ae/properties',
+          url: 'https://www.karimi.ae/properties',
           numberOfItems: filtered.length,
           itemListElement: filtered.slice(0, 30).map((p, i) => ({
             '@type': 'ListItem',
             position: i + 1,
-            url: `https://karimi.ae/properties/${p.slug}`,
-            name: p.title,
+            url: `https://www.karimi.ae/properties/${p.slug}`,
+            name: p.project_name,
           })),
         }}
       />
@@ -124,7 +126,21 @@ export default function Properties() {
 
       <section className="py-16 bg-navy-50/30">
         <div className="container-px">
-          <div className="text-sm text-navy/60 mb-6">Showing <span className="text-navy font-medium">{filtered.length}</span> of {all.length} properties</div>
+          <h2 className="font-display text-3xl md:text-4xl text-navy">Available Dubai properties</h2>
+          <p className="mt-3 text-navy/65 max-w-3xl leading-relaxed">
+            Every listing below is a direct developer allocation, so the price you see is the price you
+            pay — we charge you no commission. Starting prices, down payment percentages and handover
+            dates are shown upfront. New to the market? Start with our{' '}
+            <Link to="/insights" className="text-crimson underline underline-offset-4">
+              Dubai property investment guides
+            </Link>{' '}
+            or compare{' '}
+            <Link to="/developers" className="text-crimson underline underline-offset-4">
+              developer track records
+            </Link>
+            .
+          </p>
+          <div className="mt-6 text-sm text-navy/60 mb-6">Showing <span className="text-navy font-medium">{filtered.length}</span> of {all.length} properties</div>
           {loading ? (
             <div className="text-center py-20 text-navy/50">Loading portfolio...</div>
           ) : filtered.length === 0 ? (

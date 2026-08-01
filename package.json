@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-seo.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-seo.mjs",
+    "build:client": "vite build",
+    "build:ssg": "vite build && node scripts/prerender.mjs && node scripts/generate-seo.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json"

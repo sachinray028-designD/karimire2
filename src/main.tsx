@@ -1,13 +1,23 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HelmetProvider } from './lib/helmet';
+import { hydrateRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <HelmetProvider>
+const root = document.getElementById('root')!;
+const hasSSGContent = root.innerHTML.trim().length > 0 && window.__SSG_DATA__;
+
+if (hasSSGContent) {
+  hydrateRoot(
+    root,
+    <StrictMode>
       <App />
-    </HelmetProvider>
-  </StrictMode>
-);
+    </StrictMode>
+  );
+} else {
+  createRoot(root).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+}

@@ -17,38 +17,47 @@ import AdminThemeEditor from './pages/admin/AdminThemeEditor';
 import { ContentProvider } from './lib/content';
 import { SeoProvider } from './lib/seo';
 import { ConsultationProvider } from './components/ConsultationModal';
+import { HelmetProvider } from './lib/helmet';
+
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="properties" element={<AdminProperties />} />
+        <Route path="leads" element={<AdminLeads />} />
+        <Route path="theme" element={<AdminThemeEditor />} />
+      </Route>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/properties/:slug" element={<PropertyDetail />} />
+        <Route path="/developers" element={<Developers />} />
+        <Route path="/insights" element={<InsightsList />} />
+        <Route path="/insights/:slug" element={<InsightDetail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
+}
 
 export default function App() {
   return (
-    <ContentProvider>
-    <SeoProvider>
-    <BrowserRouter>
-    <ConsultationProvider>
-      <Routes>
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="properties" element={<AdminProperties />} />
-          <Route path="leads" element={<AdminLeads />} />
-          <Route path="theme" element={<AdminThemeEditor />} />
-        </Route>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/properties/:slug" element={<PropertyDetail />} />
-          <Route path="/developers" element={<Developers />} />
-          <Route path="/insights" element={<InsightsList />} />
-          <Route path="/insights/:slug" element={<InsightDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </ConsultationProvider>
-    </BrowserRouter>
-    </SeoProvider>
-    </ContentProvider>
+    <HelmetProvider>
+      <ContentProvider>
+        <SeoProvider>
+          <BrowserRouter>
+            <ConsultationProvider>
+              <AppRoutes />
+            </ConsultationProvider>
+          </BrowserRouter>
+        </SeoProvider>
+      </ContentProvider>
+    </HelmetProvider>
   );
 }

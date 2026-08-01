@@ -3,10 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 import { supabase, type BlogPost } from '../lib/supabase';
 import { useReveal } from '../lib/useReveal';
 import { ArrowLeft, Calendar, User, ArrowRight } from 'lucide-react';
-import { Seo } from '../lib/seo';
+import { Seo, useSiteUrl } from '../lib/seo';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { getSSGData } from '../lib/ssgData';
+import OfficialSources from '../components/OfficialSources';
 
 const TOPIC_CLUSTERS = [
   'All',
@@ -20,7 +22,9 @@ const TOPIC_CLUSTERS = [
 
 export function InsightsList() {
   useReveal();
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const site = useSiteUrl();
+  const ssg = getSSGData();
+  const [posts, setPosts] = useState<BlogPost[]>(ssg?.blogPosts || []);
   const [filter, setFilter] = useState('All');
   const [page, setPage] = useState(1);
   const POSTS_PER_PAGE = 9;
@@ -39,15 +43,15 @@ export function InsightsList() {
 
   return (
     <>
-      <Seo page="insights" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'Insights', url: 'https://karimi.ae/insights' }]} jsonLd={{
+      <Seo page="insights" breadcrumbs={[{ name: 'Home', url: `${site}/` }, { name: 'Insights', url: `${site}/insights` }]} jsonLd={{
         '@context': 'https://schema.org',
         '@type': 'Blog',
         name: 'Karimi Real Estate Insights',
-        url: 'https://karimi.ae/insights',
+        url: `${site}/insights`,
         blogPost: posts.map((p) => ({
           '@type': 'BlogPosting',
           headline: p.seo_title || p.title,
-          url: `https://karimi.ae/insights/${p.slug}`,
+          url: `${site}/insights/${p.slug}`,
           image: p.cover_image,
           datePublished: p.created_at,
           description: p.meta_description || p.excerpt,
@@ -110,10 +114,13 @@ export function InsightsList() {
 }
 
 export function InsightDetail() {
+  const site = useSiteUrl();
   const { slug } = useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const ssg = getSSGData();
+  const ssgPost = ssg?.blogPosts.find(p => p.slug === slug);
+  const [post, setPost] = useState<BlogPost | null>(ssgPost || null);
   const [related, setRelated] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!ssgPost);
 
   useEffect(() => {
     if (!slug) return;
@@ -132,30 +139,42 @@ export function InsightDetail() {
   if (loading) return <div className="pt-40 text-center text-navy/50">Loading...</div>;
   if (!post) return <div className="pt-40 text-center"><h2 className="font-display text-4xl text-navy">Article not found</h2></div>;
 
+  const wordCount = post.content?.split(/\s+/).length || 0;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    datePublished: post.created_at,
+    wordCount,
+    articleSection: post.category,
+    author: {
+      '@type': 'Person',
+      name: post.author || 'Karimi Advisory Desk',
+      jobTitle: 'Property Advisor',
+      worksFor: { '@type': 'Organization', name: 'Karimi Real Estate LLC' },
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Karimi Real Estate LLC',
+      url: site,
+    },
+  };
+
   return (
     <article>
       <Seo
         page="insights"
         titleOverride={post.seo_title || `${post.title} | Karimi Insights`}
         descriptionOverride={post.meta_description || post.excerpt}
-        canonicalOverride={`https://karimi.ae/insights/${post.slug}`}
+        canonicalOverride={`${site}/insights/${post.slug}`}
         imageOverride={post.cover_image}
-        article={{ publishedTime: post.created_at, author: 'Karimi Real Estate Advisory' }}
+        article={{ publishedTime: post.created_at, author: post.author || 'Karimi Real Estate Advisory' }}
         breadcrumbs={[
-          { name: 'Home', url: 'https://karimi.ae/' },
-          { name: 'Insights', url: 'https://karimi.ae/insights' },
-          { name: post.title, url: `https://karimi.ae/insights/${post.slug}` },
+          { name: 'Home', url: `${site}/` },
+          { name: 'Insights', url: `${site}/insights` },
+          { name: post.title, url: `${site}/insights/${post.slug}` },
         ]}
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'BlogPosting',
-          headline: post.seo_title || post.title,
-          description: post.meta_description || post.excerpt,
-          image: post.cover_image,
-          datePublished: post.created_at,
-          author: { '@type': 'Organization', name: 'Karimi Real Estate Advisory' },
-          mainEntityOfPage: `https://karimi.ae/insights/${post.slug}`,
-        }}
+        jsonLd={schema}
       />
       <section className="relative pt-20 h-[60vh] min-h-[400px]">
         <img src={post.cover_image} alt={post.title} className="absolute inset-0 w-full h-full object-cover"/>
@@ -165,8 +184,8 @@ export function InsightDetail() {
           <div className="flex gap-3 text-[11px] tracking-[0.25em] uppercase text-crimson-200"><span>{post.category}</span><span>{post.read_time}</span></div>
           <h1 className="mt-3 font-display text-white text-4xl md:text-6xl">{post.title}</h1>
           <div className="flex items-center gap-6 mt-6 text-white/80 text-sm">
-            <div className="flex items-center gap-2"><User size={16} className="text-crimson"/> Karimi Real Estate Advisory</div>
-            <div className="flex items-center gap-2"><Calendar size={16} className="text-crimson"/> {new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+            <div className="flex items-center gap-2"><User size={16} className="text-crimson"/> By {post.author || 'Karimi Real Estate Advisory'}</div>
+            <div className="flex items-center gap-2"><Calendar size={16} className="text-crimson"/> <time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time></div>
           </div>
         </div>
       </section>
@@ -185,6 +204,9 @@ export function InsightDetail() {
             <h3 className="font-display text-3xl text-navy mb-4">Discuss Your Investment Strategy</h3>
             <p className="text-navy/70 mb-8 max-w-2xl mx-auto">Speak with a RERA-certified advisor at Karimi Real Estate to understand how these insights apply to your portfolio.</p>
             <Link to="/contact" className="btn-primary inline-flex">Book a Consultation</Link>
+          </div>
+          <div className="mt-16">
+            <OfficialSources />
           </div>
         </div>
       </section>

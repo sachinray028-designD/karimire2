@@ -7,11 +7,11 @@ export default function Contact() {
   useReveal();
   return (
     <>
-      <Seo page="contact" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'Contact', url: 'https://karimi.ae/contact' }]} jsonLd={{
+      <Seo page="contact" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }]} jsonLd={{
         '@context': 'https://schema.org',
         '@type': 'ContactPage',
         name: 'Contact Karimi Real Estate',
-        url: 'https://karimi.ae/contact',
+        url: 'https://www.karimi.ae/contact',
       }}/>
       <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-navy text-white">
         <div className="container-px max-w-4xl">

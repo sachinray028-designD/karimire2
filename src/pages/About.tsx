@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { Award, Shield, Globe as Globe2, Sparkles } from 'lucide-react';
 import { useReveal } from '../lib/useReveal';
 import { useT } from '../lib/content';
@@ -31,7 +30,7 @@ export default function About() {
   ];
   return (
     <>
-      <Seo page="about" breadcrumbs={[{ name: 'Home', url: 'https://karimi.ae/' }, { name: 'About', url: 'https://karimi.ae/about' }]} />
+      <Seo page="about" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about' }]} />
       <main>
 
       {/* HERO — group photo as full background */}
