@@ -7,6 +7,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Developers from './pages/Developers';
 import { InsightsList, InsightDetail } from './pages/Insights';
+import InsightsCluster from './pages/InsightsCluster';
 import { Privacy, Terms, NotFound } from './pages/Legal';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -35,6 +36,7 @@ export function AppRoutes() {
         <Route path="/properties/:slug" element={<PropertyDetail />} />
         <Route path="/developers" element={<Developers />} />
         <Route path="/insights" element={<InsightsList />} />
+        <Route path="/insights/topic/:slug" element={<InsightsCluster />} />
         <Route path="/insights/:slug" element={<InsightDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

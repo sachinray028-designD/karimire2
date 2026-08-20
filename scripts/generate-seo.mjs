@@ -154,6 +154,15 @@ property ownership, and yield-focused portfolio construction for overseas invest
 - [Contact](${siteUrl}/contact): Book a consultation with a RERA-certified advisor
 `;
 
+  txt += `\n## Topic clusters\n
+- [International Investor Journey](${siteUrl}/insights/topic/international-investor-journey): Guides for non-UAE buyers — Golden Visa, tax structuring, remote purchase, step-by-step process
+- [Market Analysis](${siteUrl}/insights/topic/market-analysis): Data-driven analysis — bubble risk, rental yields, population growth, global comparisons
+- [Off-Plan & Buyer Protection](${siteUrl}/insights/topic/off-plan-buyer-protection): Developer evaluation, escrow accounts, payment plans, Oqood, snagging, delay rights
+- [Transaction Mechanics & Legal](${siteUrl}/insights/topic/transaction-mechanics-legal): Freehold vs leasehold, ownership structure, mortgages, POA, Ejari, DIFC wills
+- [Ownership & Yield](${siteUrl}/insights/topic/ownership-yield): Service charges, property management, exit strategy, portfolio building, branded residences
+- [Area & Community Guides](${siteUrl}/insights/topic/area-community-guides): Dubai Creek Harbour, JVC, prime villas, Dubai South — investor-grade area assessments
+`;
+
   if (posts && posts.length > 0) {
     txt += `\n## Published articles\n\n`;
     for (const p of posts) {
@@ -194,8 +203,8 @@ async function run() {
       const [{ data: g }, { data: pages }, { data: props }, { data: posts }] = await Promise.all([
         sb.from('seo_global').select('*').eq('id', 'singleton').maybeSingle(),
         sb.from('page_seo').select('page_key,route,canonical'),
-        sb.from('properties').select('slug,updated_at,project_name,location,status').eq('active', true),
-        sb.from('blog_posts').select('slug,updated_at,title').eq('published', true),
+        sb.from('properties').select('slug,created_at,project_name,location,status').eq('active', true),
+        sb.from('blog_posts').select('slug,created_at,title').eq('published', true),
       ]);
       // Ignore a stored bare-domain origin; always emit the host that serves 200.
       siteUrl = CANONICAL_ORIGIN;
@@ -222,7 +231,7 @@ async function run() {
       for (const p of allProps) {
         urls.push({
           loc: `${siteUrl}/properties/${p.slug}`,
-          lastmod: p.updated_at ? new Date(p.updated_at).toISOString().slice(0, 10) : undefined,
+          lastmod: p.created_at ? new Date(p.created_at).toISOString().slice(0, 10) : undefined,
           priority: '0.7',
           changefreq: 'weekly',
         });
@@ -230,9 +239,26 @@ async function run() {
       for (const p of allPosts) {
         urls.push({
           loc: `${siteUrl}/insights/${p.slug}`,
-          lastmod: p.updated_at ? new Date(p.updated_at).toISOString().slice(0, 10) : undefined,
+          lastmod: p.created_at ? new Date(p.created_at).toISOString().slice(0, 10) : undefined,
           priority: '0.6',
           changefreq: 'monthly',
+        });
+      }
+
+      // Topic cluster hub pages
+      const clusterSlugs = [
+        'international-investor-journey',
+        'market-analysis',
+        'off-plan-buyer-protection',
+        'transaction-mechanics-legal',
+        'ownership-yield',
+        'area-community-guides',
+      ];
+      for (const slug of clusterSlugs) {
+        urls.push({
+          loc: `${siteUrl}/insights/topic/${slug}`,
+          priority: '0.8',
+          changefreq: 'weekly',
         });
       }
     } catch (err) {

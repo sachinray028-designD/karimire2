@@ -154,6 +154,19 @@ async function run() {
     routes.push(`/insights/${p.slug}`);
   }
 
+  // Topic cluster hub pages
+  const CLUSTER_SLUGS = [
+    'international-investor-journey',
+    'market-analysis',
+    'off-plan-buyer-protection',
+    'transaction-mechanics-legal',
+    'ownership-yield',
+    'area-community-guides',
+  ];
+  for (const slug of CLUSTER_SLUGS) {
+    routes.push(`/insights/topic/${slug}`);
+  }
+
   console.log(`[prerender] Rendering ${routes.length} routes...`);
 
   // Serialize SSG data for injection (shared across all pages)
@@ -265,6 +278,15 @@ property ownership, and yield-focused portfolio construction for overseas invest
 - [Insights](${siteUrl}/insights): Research and guides on the Dubai property market
 - [About](${siteUrl}/about): Advisory model, team and regulatory standing
 - [Contact](${siteUrl}/contact): Book a consultation with a RERA-certified advisor\n`;
+
+  // Add topic clusters
+  txt += `\n## Topic clusters\n
+- [International Investor Journey](${siteUrl}/insights/topic/international-investor-journey): Guides for non-UAE buyers — Golden Visa, tax structuring, remote purchase, step-by-step process
+- [Market Analysis](${siteUrl}/insights/topic/market-analysis): Data-driven analysis — bubble risk, rental yields, population growth, global comparisons
+- [Off-Plan & Buyer Protection](${siteUrl}/insights/topic/off-plan-buyer-protection): Developer evaluation, escrow accounts, payment plans, Oqood, snagging, delay rights
+- [Transaction Mechanics & Legal](${siteUrl}/insights/topic/transaction-mechanics-legal): Freehold vs leasehold, ownership structure, mortgages, POA, Ejari, DIFC wills
+- [Ownership & Yield](${siteUrl}/insights/topic/ownership-yield): Service charges, property management, exit strategy, portfolio building, branded residences
+- [Area & Community Guides](${siteUrl}/insights/topic/area-community-guides): Dubai Creek Harbour, JVC, prime villas, Dubai South — investor-grade area assessments\n`;
 
   // Add articles
   if (data.blogPosts.length > 0) {
