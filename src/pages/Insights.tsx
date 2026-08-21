@@ -78,7 +78,7 @@ export function InsightsList() {
         })),
       }}/>
       <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-navy text-white relative overflow-hidden">
-        <img src="https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
+        <img loading="lazy" src="https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
         <div className="container-px max-w-5xl relative">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>Market Insights</div>
           <h1 className="mt-5 font-display text-5xl md:text-7xl">Intelligence,<br/><span className="italic text-crimson-100">not noise.</span></h1>
@@ -125,7 +125,7 @@ export function InsightsList() {
         <div className="container-px grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
           {displayedPosts.map((p) => (
             <Link key={p.id} to={`/insights/${p.slug}`} className="group block">
-              <div className="aspect-[4/3] overflow-hidden"><img src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/></div>
+              <div className="aspect-[4/3] overflow-hidden"><img loading="lazy" src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/></div>
               <div className="pt-5">
                 <div className="flex justify-between items-center text-[10px] tracking-[0.25em] uppercase text-navy/50">
                   <span className="text-crimson">{TOPIC_CLUSTER_DATA.find(c => c.slug === getClusterForArticle(p.slug))?.name || p.category}</span>
@@ -297,7 +297,7 @@ export function InsightDetail() {
         jsonLd={schemas}
       />
       <section className="relative pt-20 h-[60vh] min-h-[400px]">
-        <img src={post.cover_image} alt={post.title} className="absolute inset-0 w-full h-full object-cover"/>
+        <img loading="lazy" src={post.cover_image} alt={post.title} className="absolute inset-0 w-full h-full object-cover"/>
         <div className="absolute inset-0 bg-navy/70"/>
         <div className="container-px relative h-full flex flex-col justify-end pb-12 max-w-5xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-white/70 mb-4">
@@ -358,7 +358,7 @@ export function InsightDetail() {
             <div className="grid md:grid-cols-3 gap-8">
               {related.map((p) => (
                 <Link key={p.id} to={`/insights/${p.slug}`} className="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[4/3] overflow-hidden"><img src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/></div>
+                  <div className="aspect-[4/3] overflow-hidden"><img loading="lazy" src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/></div>
                   <div className="p-6">
                     <div className="flex gap-3 text-[10px] tracking-[0.25em] uppercase text-navy/50 mb-3"><span className="text-crimson">{p.category}</span></div>
                     <h3 className="font-display text-xl text-navy group-hover:text-crimson transition-colors line-clamp-2">{p.title}</h3>

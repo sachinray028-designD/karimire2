@@ -46,7 +46,7 @@ export default function Developers() {
         }}
       />
       <section className="pt-36 md:pt-44 pb-16 md:pb-20 bg-navy text-white relative overflow-hidden">
-        <img src={t('developers.hero.bg')} className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
+        <img loading="lazy" src={t('developers.hero.bg')} className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
         <div className="container-px relative max-w-4xl">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>{t('developers.hero.eyebrow')}</div>
           <h1 className="mt-5 font-display text-4xl sm:text-5xl md:text-7xl">{t('developers.hero.title1')}<br/><span className="italic text-crimson-100">{t('developers.hero.title2')}</span></h1>
@@ -77,7 +77,7 @@ export default function Developers() {
           {staticDevs.map(({ logo, est, tag, desc, img }) => (
             <div key={logo.name} className="group bg-white border border-navy/10 overflow-hidden hover-lift grid grid-cols-1 sm:grid-cols-5">
               <div className="sm:col-span-2 aspect-video sm:aspect-square relative overflow-hidden">
-                <img src={img} alt={logo.name} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
+                <img loading="lazy" src={img} alt={logo.name} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
                 <div className="absolute inset-0 bg-navy/40"/>
               </div>
               <div className="sm:col-span-3 p-6 md:p-7 flex flex-col justify-between">

@@ -133,7 +133,7 @@ export default function Home() {
       }]} />
       {/* HERO — editorial oversized title over Dubai skyline */}
       {show.hero && <section className="relative h-screen min-h-[560px] w-full overflow-hidden flex flex-col">
-        <img src={t('home.hero.bg')} alt="Dubai" className="absolute inset-0 w-full h-full object-cover"/>
+        <img src={t('home.hero.bg')} alt="Dubai" className="absolute inset-0 w-full h-full object-cover" fetchPriority="high" width={2400} height={1600} decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-b from-navy/30 via-navy/25 to-navy/75"/>
 
         {/* Vertical label on the left */}
@@ -173,7 +173,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2 md:-space-x-3 shrink-0">
                 {[t('home.hero.avatar1'), t('home.hero.avatar2'), t('home.hero.avatar3')].map((a, i) => (
-                  <img key={i} src={a} alt="" className="w-8 h-8 md:w-11 md:h-11 rounded-full object-cover border-2 border-white/70 shadow-lg"/>
+                  <img loading="lazy" key={i} src={a} alt="" className="w-8 h-8 md:w-11 md:h-11 rounded-full object-cover border-2 border-white/70 shadow-lg"/>
                 ))}
               </div>
               <div className="text-white leading-tight text-left">
@@ -276,7 +276,7 @@ export default function Home() {
       {/* EDITORIAL — SPLIT IMAGE + QUOTE */}
       {show.doctrine && <section className="relative py-14 md:py-24 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0">
-          <img src={t('home.doctrine.bg')}
+          <img loading="lazy" src={t('home.doctrine.bg')}
             className="absolute inset-0 w-full h-full object-cover opacity-25" alt=""/>
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"/>
         </div>
@@ -299,7 +299,7 @@ export default function Home() {
           </div>
           <div className="reveal relative">
             <div className="aspect-[3/4] overflow-hidden">
-              <img src={t('home.doctrine.img')} alt="Dubai skyline" className="w-full h-full object-cover"/>
+              <img loading="lazy" src={t('home.doctrine.img')} alt="Dubai skyline" className="w-full h-full object-cover"/>
             </div>
             <div className="absolute -bottom-6 -left-6 bg-white text-navy p-6 max-w-xs shadow-2xl hidden md:block">
               <div className="text-[10px] tracking-[0.3em] uppercase text-crimson">{t('home.doctrine.featured.label')}</div>
@@ -346,7 +346,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 reveal">
             {LOCATIONS.map((l, i) => (
               <div key={l.name} className={`group relative overflow-hidden cursor-pointer ${i === 0 ? 'col-span-2 md:col-span-4 md:row-span-2 aspect-[16/10]' : 'md:col-span-2 aspect-[4/3]'}`}>
-                <img src={l.img} alt={l.name} className="w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-110"/>
+                <img loading="lazy" src={l.img} alt={l.name} className="w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-110"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent"/>
                 <div className="absolute bottom-4 left-4 right-4 md:bottom-5 md:left-5 md:right-5 text-white">
                   <div className="text-[10px] tracking-[0.3em] uppercase text-crimson-200">{l.tag}</div>
@@ -364,7 +364,7 @@ export default function Home() {
 
       {/* PROCESS */}
       {show.process && <section className="py-12 md:py-20 bg-navy text-white relative overflow-hidden">
-        <img src={t('home.process.bg')}
+        <img loading="lazy" src={t('home.process.bg')}
           className="absolute inset-0 w-full h-full object-cover opacity-10" alt=""/>
         <div className="container-px relative">
           <div className="text-center reveal">
@@ -410,7 +410,7 @@ export default function Home() {
 
       {/* GOLDEN VISA */}
       {show.visa && <section className="relative py-14 md:py-24 overflow-hidden bg-navy">
-        <img src={t('home.visa.bg')} className="absolute inset-0 w-full h-full object-cover" alt=""/>
+        <img loading="lazy" src={t('home.visa.bg')} className="absolute inset-0 w-full h-full object-cover" alt=""/>
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/50"/>
         <div className="container-px relative grid lg:grid-cols-2 gap-10 md:gap-16 items-center text-white">
           <div className="reveal">
@@ -435,7 +435,7 @@ export default function Home() {
           </div>
           <div className="reveal hidden lg:block">
             <div className="aspect-[3/4] overflow-hidden relative">
-              <img src={t('home.visa.img')} alt="Dubai skyline"
+              <img loading="lazy" src={t('home.visa.img')} alt="Dubai skyline"
                 className="w-full h-full object-cover"/>
               <div className="absolute bottom-6 left-6 right-6 glass p-5 text-white">
                 <div className="text-[10px] tracking-[0.3em] uppercase text-crimson-200">{t('home.visa.eligible.label')}</div>
@@ -539,7 +539,7 @@ export default function Home() {
                   "{testimonials[tIdx].quote}"
                 </p>
                 <div className="mt-8 flex items-center gap-4">
-                  {testimonials[tIdx].avatar_url && <img src={testimonials[tIdx].avatar_url} alt="" className="w-14 h-14 rounded-full object-cover"/>}
+                  {testimonials[tIdx].avatar_url && <img loading="lazy" src={testimonials[tIdx].avatar_url} alt="" className="w-14 h-14 rounded-full object-cover"/>}
                   <div className="flex-1">
                     <div className="font-display text-navy text-lg">{testimonials[tIdx].name}</div>
                     <div className="text-xs text-navy/60">{testimonials[tIdx].role}</div>
@@ -592,7 +592,7 @@ export default function Home() {
             ].map(({ I, tt, d, img }) => (
               <div key={tt} className="group relative overflow-hidden">
                 <div className="aspect-[4/5] overflow-hidden">
-                  <img src={img} alt="" className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
+                  <img loading="lazy" src={img} alt="" className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent"/>
                 <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 text-white">
@@ -623,7 +623,7 @@ export default function Home() {
             {posts.map((p) => (
               <Link key={p.id} to={`/insights/${p.slug}`} className="group block bg-white border border-navy/10 hover-lift">
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
+                  <img loading="lazy" src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase text-navy/50">
@@ -658,7 +658,7 @@ export default function Home() {
 
       {/* CTA */}
       {show.cta && <section className="relative py-14 md:py-24 overflow-hidden">
-        <img src={t('home.cta.bg')}
+        <img loading="lazy" src={t('home.cta.bg')}
           className="absolute inset-0 w-full h-full object-cover" alt=""/>
         <div className="absolute inset-0 bg-navy/90"/>
         <div className="container-px relative text-center text-white max-w-3xl mx-auto reveal">

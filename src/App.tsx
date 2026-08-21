@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -9,27 +10,32 @@ import Developers from './pages/Developers';
 import { InsightsList, InsightDetail } from './pages/Insights';
 import InsightsCluster from './pages/InsightsCluster';
 import { Privacy, Terms, NotFound } from './pages/Legal';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminLayout from './pages/admin/AdminLayout';
-import Dashboard from './pages/admin/Dashboard';
-import AdminProperties from './pages/admin/AdminProperties';
-import AdminLeads from './pages/admin/AdminLeads';
-import AdminThemeEditor from './pages/admin/AdminThemeEditor';
 import { ContentProvider } from './lib/content';
 import { SeoProvider } from './lib/seo';
 import { ConsultationProvider } from './components/ConsultationModal';
 import { HelmetProvider } from './lib/helmet';
 
+// Admin pages: lazy-loaded to keep them out of the public bundle.
+// These are never prerendered, so React.lazy() is safe here.
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
+const AdminProperties = lazy(() => import('./pages/admin/AdminProperties'));
+const AdminLeads = lazy(() => import('./pages/admin/AdminLeads'));
+const AdminThemeEditor = lazy(() => import('./pages/admin/AdminThemeEditor'));
+
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="properties" element={<AdminProperties />} />
-        <Route path="leads" element={<AdminLeads />} />
-        <Route path="theme" element={<AdminThemeEditor />} />
+      {/* Admin routes — lazy-loaded, wrapped in Suspense */}
+      <Route path="/admin/login" element={<Suspense fallback={null}><AdminLogin /></Suspense>} />
+      <Route path="/admin" element={<Suspense fallback={null}><AdminLayout /></Suspense>}>
+        <Route index element={<Suspense fallback={null}><Dashboard /></Suspense>} />
+        <Route path="properties" element={<Suspense fallback={null}><AdminProperties /></Suspense>} />
+        <Route path="leads" element={<Suspense fallback={null}><AdminLeads /></Suspense>} />
+        <Route path="theme" element={<Suspense fallback={null}><AdminThemeEditor /></Suspense>} />
       </Route>
+      {/* Public routes — static imports for SSG compatibility */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/properties" element={<Properties />} />

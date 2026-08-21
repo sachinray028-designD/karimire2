@@ -79,8 +79,7 @@ export default function InsightsCluster() {
 
       {/* Hero */}
       <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-navy text-white relative overflow-hidden">
-        <img
-          src="https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=2000"
+        <img loading="lazy"           src="https://images.pexels.com/photos/3787485/pexels-photo-3787485.jpeg?auto=compress&cs=tinysrgb&w=2000"
           className="absolute inset-0 w-full h-full object-cover opacity-15"
           alt=""
         />

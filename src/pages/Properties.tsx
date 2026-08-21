@@ -78,7 +78,7 @@ export default function Properties() {
         }}
       />
       <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-navy text-white relative overflow-hidden">
-        <img src="https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg?auto=compress&cs=tinysrgb&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
+        <img loading="lazy" src="https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg?auto=compress&cs=tinysrgb&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-15" alt=""/>
         <div className="container-px relative">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>Curated Portfolio</div>
           <h1 className="mt-4 font-display text-5xl md:text-7xl">Dubai's finest,<br/><span className="italic text-crimson-100">filtered.</span></h1>
