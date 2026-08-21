@@ -7,6 +7,10 @@ import PropertyDetail from './pages/PropertyDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Developers from './pages/Developers';
+import DeveloperProfile from './pages/DeveloperProfile';
+import AreaGuide from './pages/AreaGuide';
+import Calculator from './pages/Calculator';
+import ComparisonPage from './pages/ComparisonPage';
 import { InsightsList, InsightDetail } from './pages/Insights';
 import InsightsCluster from './pages/InsightsCluster';
 import { Privacy, Terms, NotFound } from './pages/Legal';
@@ -41,8 +45,16 @@ export function AppRoutes() {
         <Route path="/properties" element={<Properties />} />
         <Route path="/properties/:slug" element={<PropertyDetail />} />
         <Route path="/developers" element={<Developers />} />
+        <Route path="/developers/:slug" element={<DeveloperProfile />} />
+        <Route path="/areas/:slug" element={<AreaGuide />} />
+        <Route path="/calculator" element={<Calculator />} />
         <Route path="/insights" element={<InsightsList />} />
         <Route path="/insights/topic/:slug" element={<InsightsCluster />} />
+        <Route path="/insights/emaar-vs-damac" element={<ComparisonPage />} />
+        <Route path="/insights/dubai-marina-vs-downtown" element={<ComparisonPage />} />
+        <Route path="/insights/off-plan-vs-ready" element={<ComparisonPage />} />
+        <Route path="/insights/freehold-vs-leasehold" element={<ComparisonPage />} />
+        <Route path="/insights/villa-vs-apartment" element={<ComparisonPage />} />
         <Route path="/insights/:slug" element={<InsightDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

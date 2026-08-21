@@ -45,6 +45,7 @@ const STATIC_ROUTES = [
   '/insights',
   '/about',
   '/contact',
+  '/calculator',
   '/privacy',
   '/terms',
 ];
@@ -165,6 +166,24 @@ async function run() {
   ];
   for (const slug of CLUSTER_SLUGS) {
     routes.push(`/insights/topic/${slug}`);
+  }
+
+  // Developer profile pages
+  const DEV_SLUGS = ['emaar', 'damac', 'sobha', 'omniyat', 'nakheel', 'meraas', 'ellington', 'select-group', 'binghatti', 'danube'];
+  for (const slug of DEV_SLUGS) {
+    routes.push(`/developers/${slug}`);
+  }
+
+  // Area guide pages
+  const AREA_SLUGS = ['dubai-marina', 'downtown-dubai', 'palm-jumeirah', 'business-bay', 'jbr'];
+  for (const slug of AREA_SLUGS) {
+    routes.push(`/areas/${slug}`);
+  }
+
+  // Comparison pages
+  const COMPARISON_SLUGS = ['emaar-vs-damac', 'dubai-marina-vs-downtown', 'off-plan-vs-ready', 'freehold-vs-leasehold', 'villa-vs-apartment'];
+  for (const slug of COMPARISON_SLUGS) {
+    routes.push(`/insights/${slug}`);
   }
 
   console.log(`[prerender] Rendering ${routes.length} routes...`);

@@ -261,6 +261,43 @@ async function run() {
           changefreq: 'weekly',
         });
       }
+
+      // Developer profile pages
+      const devSlugs = ['emaar', 'damac', 'sobha', 'omniyat', 'nakheel', 'meraas', 'ellington', 'select-group', 'binghatti', 'danube'];
+      for (const slug of devSlugs) {
+        urls.push({
+          loc: `${siteUrl}/developers/${slug}`,
+          priority: '0.7',
+          changefreq: 'monthly',
+        });
+      }
+
+      // Area guide pages
+      const areaSlugs = ['dubai-marina', 'downtown-dubai', 'palm-jumeirah', 'business-bay', 'jbr'];
+      for (const slug of areaSlugs) {
+        urls.push({
+          loc: `${siteUrl}/areas/${slug}`,
+          priority: '0.7',
+          changefreq: 'monthly',
+        });
+      }
+
+      // Comparison pages
+      const compSlugs = ['emaar-vs-damac', 'dubai-marina-vs-downtown', 'off-plan-vs-ready', 'freehold-vs-leasehold', 'villa-vs-apartment'];
+      for (const slug of compSlugs) {
+        urls.push({
+          loc: `${siteUrl}/insights/${slug}`,
+          priority: '0.7',
+          changefreq: 'monthly',
+        });
+      }
+
+      // ROI Calculator
+      urls.push({
+        loc: `${siteUrl}/calculator`,
+        priority: '0.7',
+        changefreq: 'monthly',
+      });
     } catch (err) {
       console.warn('[generate-seo] Supabase fetch failed, writing fallback sitemap.', err?.message || err);
     }

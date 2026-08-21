@@ -7,12 +7,35 @@ export default function Contact() {
   useReveal();
   return (
     <>
-      <Seo page="contact" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }]} jsonLd={{
-        '@context': 'https://schema.org',
-        '@type': 'ContactPage',
-        name: 'Contact Karimi Real Estate',
-        url: 'https://www.karimi.ae/contact',
-      }}/>
+      <Seo page="contact" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }]} jsonLd={[
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ContactPage',
+          name: 'Contact Karimi Real Estate',
+          url: 'https://www.karimi.ae/contact',
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'RealEstateAgent',
+          name: 'Karimi Real Estate LLC',
+          url: 'https://www.karimi.ae',
+          telephone: '+971528680423',
+          email: 'info@karimi.ae',
+          priceRange: '$$$$',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '8th Floor, Office 0810, Tamani Art Tower, Al Asayel Street, Business Bay',
+            addressLocality: 'Dubai',
+            addressCountry: 'AE',
+          },
+          geo: { '@type': 'GeoCoordinates', latitude: 25.1867, longitude: 55.2617 },
+          openingHoursSpecification: [
+            { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday','Monday','Tuesday','Wednesday','Thursday'], opens: '09:00', closes: '19:00' },
+            { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday','Saturday'], opens: '10:00', closes: '16:00' },
+          ],
+          areaServed: { '@type': 'City', name: 'Dubai', addressCountry: 'AE' },
+        },
+      ]}/>
       <section className="pt-32 md:pt-44 pb-16 md:pb-20 bg-navy text-white">
         <div className="container-px max-w-4xl">
           <div className="eyebrow text-crimson-200"><span className="w-8 h-px bg-crimson"/>Private Consultation</div>
