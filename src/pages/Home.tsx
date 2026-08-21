@@ -12,6 +12,7 @@ import { Seo } from '../lib/seo';
 import { BookConsultationButton } from '../components/ConsultationModal';
 import { getSSGData } from '../lib/ssgData';
 import OfficialSources from '../components/OfficialSources';
+import { TOPIC_CLUSTER_DATA } from '../data/topicClusters';
 
 const AWARDS = [
   { label: 'Property Finder', year: '2024 Elite Agent' },
@@ -637,6 +638,34 @@ export default function Home() {
           </div>
         </div>
       </section>}
+
+      {/* TOPIC CLUSTERS — link equity to all 6 hub pages */}
+      <section className="py-12 md:py-16 bg-white border-b border-navy/5">
+        <div className="container-px reveal">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8">
+            <div>
+              <div className="eyebrow"><span className="w-8 h-px bg-crimson"/>Expert Guides</div>
+              <h2 className="mt-3 font-display text-3xl sm:text-4xl text-navy">Explore by topic</h2>
+            </div>
+            <Link to="/insights" className="group text-navy font-medium flex items-center gap-2">All Insights <ArrowRight size={18} className="transition-transform group-hover:translate-x-1"/></Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TOPIC_CLUSTER_DATA.map((cluster) => (
+              <Link
+                key={cluster.slug}
+                to={`/insights/topic/${cluster.slug}`}
+                className="group flex items-center justify-between bg-navy-50/30 p-5 border border-navy/10 hover:border-crimson/30 transition-colors"
+              >
+                <div>
+                  <h3 className="font-display text-navy group-hover:text-crimson transition-colors">{cluster.name}</h3>
+                  <p className="text-navy/50 text-sm mt-1 line-clamp-1">{cluster.metaDescription}</p>
+                </div>
+                <ArrowRight size={16} className="text-crimson opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-3" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ */}
       {show.faq && <section className="py-12 md:py-20 bg-white">

@@ -11,6 +11,7 @@ import { getSSGData } from '../lib/ssgData';
 import OfficialSources from '../components/OfficialSources';
 import { TOPIC_CLUSTER_DATA, getClusterForArticle } from '../data/topicClusters';
 import TableOfContents from '../components/TableOfContents';
+import RelatedArticles from '../components/RelatedArticles';
 import {
   slugify,
   extractHeadings,
@@ -153,13 +154,7 @@ export function InsightsList() {
 }
 
 /** Custom heading component that adds slugified id for anchor linking. */
-function HeadingWithAnchor({
-  level,
-  children,
-}: {
-  level: number;
-  children?: ReactNode;
-}) {
+function HeadingWithAnchor({ level, children }: { level: number; children?: ReactNode }) {
   const text = extractText(children);
   const id = slugify(text);
   const Tag = `h${level}` as keyof JSX.IntrinsicElements;
@@ -177,13 +172,9 @@ function extractText(node: ReactNode): string {
   return '';
 }
 
-/**
- * Custom paragraph component that detects "Label: value" patterns
- * and renders them as definition lists.
- */
+/** Custom paragraph component that detects "Label: value" patterns and renders as definition lists. */
 function SmartParagraph({ children }: { children?: ReactNode }) {
   const text = extractText(children);
-  // Match lines like "Transfer fee: 4% of property value" or "Timeline: 2–4 weeks"
   const dlMatch = text.match(
     /^((?:Transfer fee|Registration fee|NOC fee|Agency fee|Service charge|Timeline|Duration|Threshold|Minimum|Maximum|Cost|Price|Fee|Deposit|Commission|Yield|ROI|Rate|Processing time|Validity|Requirement|Eligibility)[^:]*?):\s+(.+)$/i
   );
@@ -198,7 +189,6 @@ function SmartParagraph({ children }: { children?: ReactNode }) {
   return <p>{children}</p>;
 }
 
-/** react-markdown custom components with heading anchors + definition lists. */
 const markdownComponents: Components = {
   h2: ({ children }) => <HeadingWithAnchor level={2}>{children}</HeadingWithAnchor>,
   h3: ({ children }) => <HeadingWithAnchor level={3}>{children}</HeadingWithAnchor>,
@@ -212,20 +202,15 @@ export function InsightDetail() {
   const ssg = getSSGData();
   const ssgPost = ssg?.blogPosts.find(p => p.slug === slug);
   const [post, setPost] = useState<BlogPost | null>(ssgPost || null);
-  const [related, setRelated] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(!ssgPost);
 
   useEffect(() => {
     if (!slug) return;
     window.scrollTo(0, 0);
     supabase.from('blog_posts').select('*').eq('slug', slug).eq('published', true).maybeSingle()
-      .then(({ data }) => { 
-        setPost(data); 
-        if (data) {
-          supabase.from('blog_posts').select('*').eq('category', data.category).neq('id', data.id).eq('published', true).limit(3)
-            .then(({ data: relatedData }) => setRelated(relatedData || []));
-        }
-        setLoading(false); 
+      .then(({ data }) => {
+        setPost(data);
+        setLoading(false);
       });
   }, [slug]);
 
@@ -234,17 +219,12 @@ export function InsightDetail() {
 
   const content = post.content || '';
   const wordCount = content.split(/\s+/).length || 0;
-
-  // Extract AEO data from markdown
   const headings = extractHeadings(content);
   const faqPairs = extractFAQPairs(content);
   const howToSteps = extractHowToSteps(content);
   const articleUrl = `${site}/insights/${post.slug}`;
 
-  // Build structured data array
   const schemas: object[] = [];
-
-  // BlogPosting with Speakable
   schemas.push({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -260,18 +240,10 @@ export function InsightDetail() {
       jobTitle: 'Property Advisor',
       worksFor: { '@type': 'Organization', name: 'Karimi Real Estate LLC' },
     },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Karimi Real Estate LLC',
-      url: site,
-    },
+    publisher: { '@type': 'Organization', name: 'Karimi Real Estate LLC', url: site },
   });
-
-  // FAQ schema (only if question headings exist)
   const faqSchema = buildFAQSchema(faqPairs);
   if (faqSchema) schemas.push(faqSchema);
-
-  // HowTo schema (only if Step N headings exist)
   const howToSchema = buildHowToSchema(post.title, howToSteps, articleUrl);
   if (howToSchema) schemas.push(howToSchema);
 
@@ -317,20 +289,12 @@ export function InsightDetail() {
         <div className="container-px max-w-5xl mx-auto">
           <p className="article-intro text-xl text-navy/80 leading-relaxed font-light">{post.excerpt}</p>
           <div className="gold-divider my-10"/>
-
-          {/* Table of Contents */}
           <TableOfContents headings={headings} />
-          
           <div className="prose-custom max-w-none">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
-              components={markdownComponents}
-            >
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={markdownComponents}>
               {content}
             </ReactMarkdown>
           </div>
-
           <div className="mt-16 bg-navy-50 p-8 md:p-12 text-center">
             <h3 className="font-display text-3xl text-navy mb-4">Discuss Your Investment Strategy</h3>
             <p className="text-navy/70 mb-8 max-w-2xl mx-auto">Speak with a RERA-certified advisor at Karimi Real Estate to understand how these insights apply to your portfolio.</p>
@@ -341,34 +305,7 @@ export function InsightDetail() {
           </div>
         </div>
       </section>
-
-      {related.length > 0 && (
-        <section className="py-20 bg-gray-50 border-t border-gray-200">
-          <div className="container-px">
-            <div className="flex justify-between items-end mb-12">
-              <div>
-                <div className="eyebrow"><span className="w-8 h-px bg-crimson"/>Related Topics</div>
-                <h2 className="mt-3 font-display text-4xl text-navy">Continue Reading</h2>
-              </div>
-              <Link to="/insights" className="hidden md:flex items-center gap-2 text-crimson font-medium hover:text-navy transition-colors text-sm uppercase tracking-widest">
-                More Insights <ArrowRight size={16}/>
-              </Link>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {related.map((p) => (
-                <Link key={p.id} to={`/insights/${p.slug}`} className="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[4/3] overflow-hidden"><img loading="lazy" src={p.cover_image} alt={p.title} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"/></div>
-                  <div className="p-6">
-                    <div className="flex gap-3 text-[10px] tracking-[0.25em] uppercase text-navy/50 mb-3"><span className="text-crimson">{p.category}</span></div>
-                    <h3 className="font-display text-xl text-navy group-hover:text-crimson transition-colors line-clamp-2">{p.title}</h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <RelatedArticles currentSlug={post.slug} clusterSlug={clusterSlug} />
     </article>
   );
 }
