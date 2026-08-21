@@ -1,15 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase, type BlogPost } from '../lib/supabase';
 import { useReveal } from '../lib/useReveal';
 import { ArrowLeft, Calendar, User, ArrowRight } from 'lucide-react';
 import { Seo, useSiteUrl } from '../lib/seo';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { getSSGData } from '../lib/ssgData';
 import OfficialSources from '../components/OfficialSources';
 import { TOPIC_CLUSTER_DATA, getClusterForArticle } from '../data/topicClusters';
+import TableOfContents from '../components/TableOfContents';
+import {
+  slugify,
+  extractHeadings,
+  extractFAQPairs,
+  extractHowToSteps,
+  buildFAQSchema,
+  buildHowToSchema,
+  buildSpeakable,
+} from '../lib/articleUtils';
 
 const TOPIC_CLUSTERS = [
   'All',
@@ -142,6 +152,60 @@ export function InsightsList() {
   );
 }
 
+/** Custom heading component that adds slugified id for anchor linking. */
+function HeadingWithAnchor({
+  level,
+  children,
+}: {
+  level: number;
+  children?: ReactNode;
+}) {
+  const text = extractText(children);
+  const id = slugify(text);
+  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  return <Tag id={id}>{children}</Tag>;
+}
+
+/** Recursively extract text from React children. */
+function extractText(node: ReactNode): string {
+  if (typeof node === 'string') return node;
+  if (typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join('');
+  if (node && typeof node === 'object' && 'props' in node) {
+    return extractText((node as { props: { children?: ReactNode } }).props.children);
+  }
+  return '';
+}
+
+/**
+ * Custom paragraph component that detects "Label: value" patterns
+ * and renders them as definition lists.
+ */
+function SmartParagraph({ children }: { children?: ReactNode }) {
+  const text = extractText(children);
+  // Match lines like "Transfer fee: 4% of property value" or "Timeline: 2–4 weeks"
+  const dlMatch = text.match(
+    /^((?:Transfer fee|Registration fee|NOC fee|Agency fee|Service charge|Timeline|Duration|Threshold|Minimum|Maximum|Cost|Price|Fee|Deposit|Commission|Yield|ROI|Rate|Processing time|Validity|Requirement|Eligibility)[^:]*?):\s+(.+)$/i
+  );
+  if (dlMatch) {
+    return (
+      <dl className="my-2">
+        <dt className="font-semibold text-navy inline">{dlMatch[1]}:</dt>{' '}
+        <dd className="inline text-navy/75">{dlMatch[2]}</dd>
+      </dl>
+    );
+  }
+  return <p>{children}</p>;
+}
+
+/** react-markdown custom components with heading anchors + definition lists. */
+const markdownComponents: Components = {
+  h2: ({ children }) => <HeadingWithAnchor level={2}>{children}</HeadingWithAnchor>,
+  h3: ({ children }) => <HeadingWithAnchor level={3}>{children}</HeadingWithAnchor>,
+  h4: ({ children }) => <HeadingWithAnchor level={4}>{children}</HeadingWithAnchor>,
+  p: ({ children }) => <SmartParagraph>{children}</SmartParagraph>,
+};
+
 export function InsightDetail() {
   const site = useSiteUrl();
   const { slug } = useParams();
@@ -168,14 +232,28 @@ export function InsightDetail() {
   if (loading) return <div className="pt-40 text-center text-navy/50">Loading...</div>;
   if (!post) return <div className="pt-40 text-center"><h2 className="font-display text-4xl text-navy">Article not found</h2></div>;
 
-  const wordCount = post.content?.split(/\s+/).length || 0;
-  const schema = {
+  const content = post.content || '';
+  const wordCount = content.split(/\s+/).length || 0;
+
+  // Extract AEO data from markdown
+  const headings = extractHeadings(content);
+  const faqPairs = extractFAQPairs(content);
+  const howToSteps = extractHowToSteps(content);
+  const articleUrl = `${site}/insights/${post.slug}`;
+
+  // Build structured data array
+  const schemas: object[] = [];
+
+  // BlogPosting with Speakable
+  schemas.push({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     datePublished: post.created_at,
     wordCount,
     articleSection: post.category,
+    url: articleUrl,
+    speakable: buildSpeakable(),
     author: {
       '@type': 'Person',
       name: post.author || 'Karimi Advisory Desk',
@@ -187,7 +265,15 @@ export function InsightDetail() {
       name: 'Karimi Real Estate LLC',
       url: site,
     },
-  };
+  });
+
+  // FAQ schema (only if question headings exist)
+  const faqSchema = buildFAQSchema(faqPairs);
+  if (faqSchema) schemas.push(faqSchema);
+
+  // HowTo schema (only if Step N headings exist)
+  const howToSchema = buildHowToSchema(post.title, howToSteps, articleUrl);
+  if (howToSchema) schemas.push(howToSchema);
 
   const clusterSlug = getClusterForArticle(post.slug);
   const cluster = TOPIC_CLUSTER_DATA.find(c => c.slug === clusterSlug);
@@ -199,16 +285,16 @@ export function InsightDetail() {
         page="insights"
         titleOverride={post.seo_title || `${post.title} | Karimi Insights`}
         descriptionOverride={post.meta_description || post.excerpt}
-        canonicalOverride={`${site}/insights/${post.slug}`}
+        canonicalOverride={articleUrl}
         imageOverride={post.cover_image}
         article={{ publishedTime: post.created_at, author: post.author || 'Karimi Real Estate Advisory' }}
         breadcrumbs={[
           { name: 'Home', url: `${site}/` },
           { name: 'Insights', url: `${site}/insights` },
           { name: clusterName, url: `${site}/insights/topic/${clusterSlug}` },
-          { name: post.title, url: `${site}/insights/${post.slug}` },
+          { name: post.title, url: articleUrl },
         ]}
-        jsonLd={schema}
+        jsonLd={schemas}
       />
       <section className="relative pt-20 h-[60vh] min-h-[400px]">
         <img src={post.cover_image} alt={post.title} className="absolute inset-0 w-full h-full object-cover"/>
@@ -229,12 +315,19 @@ export function InsightDetail() {
       </section>
       <section className="py-16 bg-white">
         <div className="container-px max-w-5xl mx-auto">
-          <p className="text-xl text-navy/80 leading-relaxed font-light">{post.excerpt}</p>
+          <p className="article-intro text-xl text-navy/80 leading-relaxed font-light">{post.excerpt}</p>
           <div className="gold-divider my-10"/>
+
+          {/* Table of Contents */}
+          <TableOfContents headings={headings} />
           
           <div className="prose-custom max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              {post.content}
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={markdownComponents}
+            >
+              {content}
             </ReactMarkdown>
           </div>
 
